@@ -101,6 +101,7 @@ export const routes = {
 
   dashboard: () => "/dashboard",
   dashboardAnalytics: () => "/dashboard/analytics",
+  dashboardRevenue: () => "/dashboard/revenue",
   dashboardLogin: () => "/dashboard/login",
   dashboardThemes: () => "/dashboard/themes",
   dashboardTheme: (themeSlug: string) => `/dashboard/themes/${themeSlug}`,

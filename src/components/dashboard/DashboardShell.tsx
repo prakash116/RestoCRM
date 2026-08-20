@@ -9,6 +9,7 @@ import {
   LogOut,
   Palette,
   ShieldCheck,
+  WalletCards,
 } from "lucide-react";
 
 import { LogoMark } from "@/components/ui/Logo";
@@ -20,6 +21,7 @@ import { routes } from "@/lib/utils/routes";
 const nav = [
   { label: "Overview", href: routes.dashboard(), icon: LayoutDashboard },
   { label: "Analytics", href: routes.dashboardAnalytics(), icon: ChartNoAxesCombined },
+  { label: "Revenue", href: routes.dashboardRevenue(), icon: WalletCards },
   { label: "Themes", href: routes.dashboardThemes(), icon: Palette },
 ];
 
@@ -31,6 +33,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   const activeTheme = useAppSelector((state) =>
     state.theme.themes.find((theme) => theme.id === state.theme.activeThemeId),
   );
+  const reportingPage =
+    pathname.startsWith(routes.dashboardAnalytics()) ||
+    pathname.startsWith(routes.dashboardRevenue());
 
   return (
     <div className="flex min-h-dvh flex-col bg-muted/40 lg:flex-row">
@@ -121,10 +126,10 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           <p className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
             <ShieldCheck className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
             <span>
-              {pathname.startsWith(routes.dashboardAnalytics()) ? (
+              {reportingPage ? (
                 <>
-                  Analytics demo. Report figures are illustrative UI data and are not connected to
-                  a billing, membership or customer database.
+                  Reporting demo. Analytics and revenue figures are illustrative UI data and are
+                  not connected to a billing, gateway, membership or customer database.
                 </>
               ) : (
                 <>
