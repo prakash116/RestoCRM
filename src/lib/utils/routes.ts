@@ -23,8 +23,14 @@ function withQuery(path: string, query: Record<string, string | undefined>): str
   return qs ? `${path}?${qs}` : path;
 }
 
+/** Treat static-host trailing-slash URLs and client routes as the same path. */
+export function normalizePathname(pathname: string): string {
+  return pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+}
+
 export const routes = {
   home: () => "/",
+  offline: () => "/offline",
 
   /* ---- Discovery -------------------------------------------------------- */
 

@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation";
 
+import { normalizePathname, routes } from "@/lib/utils/routes";
+
 import { MobileStickyCta } from "./MobileStickyCta";
 
 /**
@@ -22,8 +24,12 @@ export function SiteChrome({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const normalizedPathname = normalizePathname(pathname);
 
-  if (pathname.startsWith("/dashboard")) {
+  if (
+    normalizedPathname.startsWith(routes.dashboard()) ||
+    normalizedPathname === routes.offline()
+  ) {
     return <>{children}</>;
   }
 

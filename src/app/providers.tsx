@@ -2,6 +2,7 @@
 
 import { MotionConfig } from "motion/react";
 
+import { NetworkRedirect } from "@/components/network/NetworkRedirect";
 import { StoreProvider } from "@/lib/StoreProvider";
 
 /**
@@ -18,7 +19,9 @@ import { StoreProvider } from "@/lib/StoreProvider";
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <StoreProvider>
-      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      <MotionConfig reducedMotion="user">
+        <NetworkRedirect>{children}</NetworkRedirect>
+      </MotionConfig>
     </StoreProvider>
   );
 }
