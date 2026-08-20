@@ -17,7 +17,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: sitePath("/"),
-        disallow: [sitePath("/q/"), sitePath("/restaurant/login"), sitePath("/api/")],
+        disallow: [
+          sitePath("/q/"),
+          sitePath("/restaurant/login"),
+          sitePath("/dashboard"),
+          sitePath("/api/"),
+        ],
       },
     ],
     sitemap: absoluteUrl("/sitemap.xml"),
