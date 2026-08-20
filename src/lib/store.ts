@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import { authReducer } from "./features/auth/authSlice";
 import { favoritesReducer } from "./features/favorites/favoritesSlice";
 import { locationReducer } from "./features/location/locationSlice";
 import { restaurantsReducer } from "./features/restaurants/restaurantsSlice";
+import { themeReducer } from "./features/theme/themeSlice";
 
 /**
  * A factory — never a module-level singleton.
@@ -17,6 +19,8 @@ export function makeStore() {
       location: locationReducer,
       restaurants: restaurantsReducer,
       favorites: favoritesReducer,
+      theme: themeReducer,
+      auth: authReducer,
     },
   });
 }
