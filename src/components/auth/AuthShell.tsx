@@ -55,11 +55,11 @@ export function AuthShell({
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -bottom-32 -left-24 -z-10 size-[28rem] rounded-full bg-[radial-gradient(circle,rgba(214,58,40,0.5),transparent_65%)] blur-3xl"
+          className="pointer-events-none absolute -bottom-32 -left-24 -z-10 size-[28rem] rounded-full bg-[radial-gradient(circle,rgb(var(--primary-rgb)/0.5),transparent_65%)] blur-3xl"
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(150deg,rgba(20,14,11,0.9),rgba(20,14,11,0.65))]"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(150deg,rgb(var(--ink-rgb)/0.9),rgb(var(--ink-rgb)/0.65))]"
         />
 
         <div className="flex h-full flex-col justify-between p-12 xl:p-16">

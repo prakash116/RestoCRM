@@ -31,7 +31,7 @@ export function PageHeader({
     >
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(65%_70%_at_12%_0%,rgba(253,236,232,0.85),transparent_62%),radial-gradient(45%_55%_at_92%_5%,rgba(253,242,227,0.9),transparent_65%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(65%_70%_at_12%_0%,rgb(var(--primary-rgb)/0.12),transparent_62%),radial-gradient(45%_55%_at_92%_5%,rgb(var(--accent-rgb)/0.16),transparent_65%)]"
       />
 
       <Container>
@@ -40,7 +40,7 @@ export function PageHeader({
         <div className="mt-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             {eyebrow ? (
-              <p className="mb-3 text-xs font-bold tracking-[0.16em] text-primary uppercase">
+              <p className="mb-3 text-xs font-bold tracking-[0.16em] text-primary-strong uppercase">
                 {eyebrow}
               </p>
             ) : null}

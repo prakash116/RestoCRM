@@ -47,7 +47,7 @@ export function CuisineSection({ cuisines }: { cuisines: Cuisine[] }) {
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 bg-[linear-gradient(to_top,rgba(18,12,10,0.9)_2%,rgba(18,12,10,0.35)_45%,rgba(18,12,10,0.06)_100%)]"
+                  className="absolute inset-0 bg-[linear-gradient(to_top,rgb(var(--ink-rgb)/0.9)_2%,rgb(var(--ink-rgb)/0.35)_45%,rgb(var(--ink-rgb)/0.06)_100%)]"
                 />
 
                 <span className="absolute inset-x-0 bottom-0 p-4">

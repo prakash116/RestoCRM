@@ -76,7 +76,7 @@ function RestaurantListingView({
           offersOnly ? (
             <Link
               href={routes.restaurants()}
-              className="inline-flex h-11 items-center gap-2 rounded-pill border border-border bg-card px-5 text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+              className="inline-flex h-11 items-center gap-2 rounded-pill border border-border bg-card px-5 text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary-strong"
             >
               Show all restaurants
             </Link>

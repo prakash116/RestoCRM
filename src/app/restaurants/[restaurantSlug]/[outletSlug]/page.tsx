@@ -131,7 +131,7 @@ export default async function OutletPage({ params }: OutletPageProps) {
               </p>
               <a
                 href={`tel:${outlet.phone.replace(/-/g, "")}`}
-                className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-pill border border-border bg-card text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-pill border border-border bg-card text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary-strong"
               >
                 Call {outlet.name}
               </a>

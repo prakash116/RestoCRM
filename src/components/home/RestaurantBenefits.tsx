@@ -42,7 +42,7 @@ export function RestaurantBenefits() {
               <RevealItem as="li" key={benefit.id} className="h-full">
                 <SpotlightCard className="flex h-full flex-col p-6">
                   <span className="grid size-11 place-items-center rounded-control bg-primary-soft">
-                    <Icon className="size-[1.35rem] text-primary" aria-hidden="true" />
+                    <Icon className="size-[1.35rem] text-primary-strong" aria-hidden="true" />
                   </span>
 
                   <h3 className="mt-5 text-lg leading-snug font-bold text-foreground">
@@ -98,7 +98,7 @@ function QrJourney() {
       <div className="relative isolate overflow-hidden rounded-panel bg-ink px-6 py-10 text-ink-foreground sm:px-10 lg:px-12 lg:py-12">
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -top-28 -right-16 -z-10 size-80 rounded-full bg-[radial-gradient(circle,rgba(214,58,40,0.45),transparent_68%)] blur-3xl"
+          className="pointer-events-none absolute -top-28 -right-16 -z-10 size-80 rounded-full bg-[radial-gradient(circle,rgb(var(--primary-rgb)/0.45),transparent_68%)] blur-3xl"
         />
 
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">

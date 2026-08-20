@@ -55,7 +55,7 @@ export function RestaurantCard({
         {/* Scrim only where overlaid text sits, so the food stays bright. */}
         <span
           aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-2/5 bg-[linear-gradient(to_top,rgba(18,12,10,0.78),transparent)]"
+          className="absolute inset-x-0 bottom-0 h-2/5 bg-[linear-gradient(to_top,rgb(var(--ink-rgb)/0.78),transparent)]"
         />
 
         <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
@@ -111,7 +111,7 @@ export function RestaurantCard({
             {restaurant.cuisines.join(" • ")}
           </p>
           <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <MapPin className="size-3.5 shrink-0 text-primary/70" aria-hidden="true" />
+            <MapPin className="size-3.5 shrink-0 text-primary-strong/70" aria-hidden="true" />
             <span className="truncate">{restaurant.location.locality}</span>
             <span aria-hidden="true">·</span>
             <span className="shrink-0 tabular-nums">
@@ -140,7 +140,7 @@ export function RestaurantCard({
               aria-hidden="true"
               className={cn(
                 "pointer-events-none inline-flex h-9 flex-1 items-center justify-center rounded-pill px-3 text-[0.8125rem] font-semibold",
-                "bg-primary-soft text-primary transition-colors duration-200",
+                "bg-primary-soft text-primary-strong transition-colors duration-200",
                 "group-hover:bg-primary group-hover:text-primary-foreground",
               )}
             >
@@ -150,7 +150,7 @@ export function RestaurantCard({
             {restaurant.acceptsBookings && primaryOutlet ? (
               <Link
                 href={routes.bookTable(restaurant.slug, primaryOutlet.slug)}
-                className="inline-flex h-9 shrink-0 items-center justify-center rounded-pill border border-border px-3.5 text-[0.8125rem] font-semibold text-foreground transition-colors duration-200 hover:border-primary/40 hover:text-primary"
+                className="inline-flex h-9 shrink-0 items-center justify-center rounded-pill border border-border px-3.5 text-[0.8125rem] font-semibold text-foreground transition-colors duration-200 hover:border-primary/40 hover:text-primary-strong"
               >
                 Book Table
                 <span className="sr-only"> at {restaurant.name}</span>

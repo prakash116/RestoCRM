@@ -75,7 +75,7 @@ export function DishCard({
             {dish.restaurantName}
           </p>
           <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <MapPin className="size-3 shrink-0 text-primary/70" aria-hidden="true" />
+            <MapPin className="size-3 shrink-0 text-primary-strong/70" aria-hidden="true" />
             <span className="truncate">{dish.location}</span>
           </p>
         </div>

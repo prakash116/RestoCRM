@@ -173,7 +173,7 @@ export default async function OutletReviewsPage({ params }: ReviewsPageProps) {
           </GlowCard>
 
           <p className="mt-6 flex items-start gap-2.5 rounded-control border border-border bg-muted/50 px-4 py-3.5 text-sm text-muted-foreground">
-            <Info className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+            <Info className="mt-0.5 size-4 shrink-0 text-primary-strong" aria-hidden="true" />
             <span>
               Individual written reviews appear here once diners start reviewing this outlet.
               Ratings shown are demonstration data for the Delhi launch build.

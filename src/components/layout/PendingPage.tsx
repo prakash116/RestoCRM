@@ -51,7 +51,7 @@ export function PendingPage({
             <ul className="mt-5 space-y-3.5">
               {covers.map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <CircleCheck className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
+                  <CircleCheck className="mt-0.5 size-5 shrink-0 text-primary-strong" aria-hidden="true" />
                   <span className="text-[0.9375rem] leading-relaxed text-muted-foreground">
                     {item}
                   </span>
@@ -77,7 +77,7 @@ export function PendingPage({
 
             <Link
               href={routes.contact()}
-              className="mt-3 inline-flex h-11 w-full items-center justify-center rounded-pill border border-border text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+              className="mt-3 inline-flex h-11 w-full items-center justify-center rounded-pill border border-border text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary-strong"
             >
               Contact the team
             </Link>

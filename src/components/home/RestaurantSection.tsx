@@ -37,7 +37,7 @@ export function RestaurantSection({ restaurants }: { restaurants: Restaurant[] }
         <div className="mt-10 flex justify-center md:hidden">
           <Link
             href={routes.restaurants()}
-            className="group inline-flex h-12 items-center gap-2 rounded-pill border border-border bg-card px-6 text-[0.9375rem] font-semibold text-foreground shadow-soft transition-colors hover:border-primary/40 hover:text-primary"
+            className="group inline-flex h-12 items-center gap-2 rounded-pill border border-border bg-card px-6 text-[0.9375rem] font-semibold text-foreground shadow-soft transition-colors hover:border-primary/40 hover:text-primary-strong"
           >
             View All Restaurants
             <ArrowRight

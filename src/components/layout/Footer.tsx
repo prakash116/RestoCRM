@@ -32,7 +32,7 @@ export function Footer() {
             <div className="flex items-center gap-2.5">
               <LogoMark />
               <span className="text-[1.32rem] leading-none font-extrabold tracking-[-0.03em] text-foreground">
-                Dine<span className="font-semibold text-primary">Board</span>
+                Dine<span className="font-semibold text-primary-strong">Board</span>
               </span>
             </div>
 
@@ -47,23 +47,23 @@ export function Footer() {
 
             <ul className="mt-6 space-y-2.5 text-sm text-muted-foreground">
               <li className="flex items-center gap-2.5">
-                <MapPin className="size-4 shrink-0 text-primary" aria-hidden="true" />
+                <MapPin className="size-4 shrink-0 text-primary-strong" aria-hidden="true" />
                 {siteConfig.launchCity.region}, {siteConfig.launchCity.country}
               </li>
               <li className="flex items-center gap-2.5">
-                <Mail className="size-4 shrink-0 text-primary" aria-hidden="true" />
+                <Mail className="size-4 shrink-0 text-primary-strong" aria-hidden="true" />
                 <a
                   href={`mailto:${siteConfig.contact.salesEmail}`}
-                  className="rounded-sm transition-colors hover:text-primary"
+                  className="rounded-sm transition-colors hover:text-primary-strong"
                 >
                   {siteConfig.contact.salesEmail}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone className="size-4 shrink-0 text-primary" aria-hidden="true" />
+                <Phone className="size-4 shrink-0 text-primary-strong" aria-hidden="true" />
                 <a
                   href={`tel:${siteConfig.contact.phone.replace(/-/g, "")}`}
-                  className="rounded-sm transition-colors hover:text-primary"
+                  className="rounded-sm transition-colors hover:text-primary-strong"
                 >
                   {siteConfig.contact.phone}
                 </a>
@@ -82,7 +82,7 @@ export function Footer() {
                     <li key={`${column.title}-${link.label}`}>
                       <Link
                         href={link.href}
-                        className="rounded-sm text-sm text-muted-foreground transition-colors hover:text-primary"
+                        className="rounded-sm text-sm text-muted-foreground transition-colors hover:text-primary-strong"
                       >
                         {link.label}
                       </Link>
@@ -113,7 +113,7 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer noopener"
                   aria-label={`${siteConfig.name} on ${label}`}
-                  className="grid size-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                  className="grid size-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary-strong"
                 >
                   <Icon className="size-[1.15rem]" />
                 </a>

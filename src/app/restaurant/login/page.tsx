@@ -29,7 +29,7 @@ export default function RestaurantLoginPage() {
           Not listed yet?{" "}
           <Link
             href={routes.listRestaurant()}
-            className="rounded-sm font-semibold text-primary hover:underline"
+            className="rounded-sm font-semibold text-primary-strong hover:underline"
           >
             List your restaurant
           </Link>

@@ -82,7 +82,7 @@ function PlanCard({ plan }: { plan: MembershipPlan }) {
       <p className="mt-1.5 text-sm text-foreground">{plan.bestFor}</p>
 
       {plan.inheritsFrom ? (
-        <p className="mt-5 rounded-control bg-primary-soft px-3.5 py-2.5 text-sm font-semibold text-primary">
+        <p className="mt-5 rounded-control bg-primary-soft px-3.5 py-2.5 text-sm font-semibold text-primary-strong">
           Everything in {plan.inheritsFrom}, plus:
         </p>
       ) : null}
@@ -116,7 +116,7 @@ function PlanCard({ plan }: { plan: MembershipPlan }) {
           "transition-[background-color,box-shadow,border-color,color] duration-200",
           plan.recommended
             ? "bg-primary text-primary-foreground shadow-soft hover:bg-primary-strong hover:shadow-glow"
-            : "border border-border bg-card text-foreground hover:border-primary/40 hover:text-primary",
+            : "border border-border bg-card text-foreground hover:border-primary/40 hover:text-primary-strong",
         )}
       >
         {plan.ctaLabel}

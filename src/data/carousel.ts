@@ -21,7 +21,7 @@ export const carouselSlides: CarouselSlide[] = [
     ctaLabel: "Browse Offers",
     ctaHref: routes.offers(),
     overlayClass:
-      "bg-[linear-gradient(100deg,rgba(20,12,9,0.92)_0%,rgba(20,12,9,0.72)_38%,rgba(20,12,9,0.15)_78%)]",
+      "bg-[linear-gradient(100deg,rgb(var(--ink-rgb)/0.92)_0%,rgb(var(--ink-rgb)/0.72)_38%,rgb(var(--ink-rgb)/0.15)_78%)]",
   },
   {
     id: "top-rated",
@@ -32,7 +32,7 @@ export const carouselSlides: CarouselSlide[] = [
     ctaLabel: "See Top Rated",
     ctaHref: routes.restaurants(),
     overlayClass:
-      "bg-[linear-gradient(100deg,rgba(24,10,6,0.94)_0%,rgba(24,10,6,0.7)_40%,rgba(24,10,6,0.12)_80%)]",
+      "bg-[linear-gradient(100deg,rgb(var(--ink-rgb)/0.94)_0%,rgb(var(--ink-rgb)/0.7)_40%,rgb(var(--ink-rgb)/0.12)_80%)]",
   },
   {
     id: "new-restaurants",
@@ -43,7 +43,7 @@ export const carouselSlides: CarouselSlide[] = [
     ctaLabel: "Discover New",
     ctaHref: routes.restaurants(),
     overlayClass:
-      "bg-[linear-gradient(100deg,rgba(16,14,12,0.93)_0%,rgba(16,14,12,0.72)_38%,rgba(16,14,12,0.14)_78%)]",
+      "bg-[linear-gradient(100deg,rgb(var(--ink-rgb)/0.93)_0%,rgb(var(--ink-rgb)/0.72)_38%,rgb(var(--ink-rgb)/0.14)_78%)]",
   },
   {
     id: "book-table",
@@ -54,6 +54,6 @@ export const carouselSlides: CarouselSlide[] = [
     ctaLabel: "Book a Table",
     ctaHref: routes.restaurants(),
     overlayClass:
-      "bg-[linear-gradient(100deg,rgba(18,11,8,0.94)_0%,rgba(18,11,8,0.74)_40%,rgba(18,11,8,0.16)_80%)]",
+      "bg-[linear-gradient(100deg,rgb(var(--ink-rgb)/0.94)_0%,rgb(var(--ink-rgb)/0.74)_40%,rgb(var(--ink-rgb)/0.16)_80%)]",
   },
 ];

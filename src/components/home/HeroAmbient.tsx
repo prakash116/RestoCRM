@@ -17,8 +17,8 @@ import {
 const PARTICLE_COUNT = 140;
 
 /**
- * Ambient warm motes behind the hero composition — the out-of-focus bokeh you
- * get shooting food under warm restaurant light.
+ * Ambient motes behind the hero composition — the out-of-focus bokeh you get
+ * shooting through a lit dining room, tinted to the brand accent.
  *
  * Loaded only after the hero is interactive, and only on capable desktop
  * hardware (see `HeroAmbientLoader`). The loop stops entirely when the tab is
@@ -47,6 +47,20 @@ export default function HeroAmbient() {
     // nobody is looking at directly.
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
+    /**
+     * Palette is read from the design tokens at runtime.
+     *
+     * Neither `addColorStop` nor Three's `Color` resolves CSS custom
+     * properties, so the canvas needs literal values — but hardcoding the
+     * brand here would leave a second copy that silently survives a re-skin.
+     * Reading `--accent-rgb` keeps this layer tied to `globals.css`.
+     */
+    const rootStyles = getComputedStyle(document.documentElement);
+    const accentChannels =
+      rootStyles.getPropertyValue("--accent-rgb").trim() || "147 167 224";
+    // Three's colour parser wants the legacy comma form, not space-separated.
+    const accent = accentChannels.replace(/\s+/g, ",");
+
     /* Soft radial sprite, drawn once into a 64px canvas. */
     const sprite = document.createElement("canvas");
     sprite.width = 64;
@@ -54,9 +68,11 @@ export default function HeroAmbient() {
     const ctx = sprite.getContext("2d");
     if (ctx) {
       const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-      gradient.addColorStop(0, "rgba(255,236,214,1)");
-      gradient.addColorStop(0.45, "rgba(240,161,42,0.42)");
-      gradient.addColorStop(1, "rgba(240,161,42,0)");
+      // White core reading as an out-of-focus highlight, falling off through
+      // the brand accent.
+      gradient.addColorStop(0, "rgba(255,255,255,0.95)");
+      gradient.addColorStop(0.45, `rgba(${accent},0.45)`);
+      gradient.addColorStop(1, `rgba(${accent},0)`);
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, 64, 64);
     }
@@ -81,7 +97,7 @@ export default function HeroAmbient() {
       transparent: true,
       depthWrite: false,
       blending: AdditiveBlending,
-      color: new Color("#f0a12a"),
+      color: new Color(`rgb(${accent})`),
       opacity: 0.75,
       sizeAttenuation: true,
     });

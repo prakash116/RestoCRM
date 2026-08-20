@@ -71,7 +71,7 @@ export default function ContactPage() {
               <li key={channel.title}>
                 <GlowCard interactive={false} className="h-full rounded-panel p-6">
                   <span className="grid size-11 place-items-center rounded-control bg-primary-soft">
-                    <Icon className="size-[1.35rem] text-primary" aria-hidden="true" />
+                    <Icon className="size-[1.35rem] text-primary-strong" aria-hidden="true" />
                   </span>
                   <h2 className="mt-5 text-lg font-bold text-foreground">{channel.title}</h2>
                   <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
@@ -79,7 +79,7 @@ export default function ContactPage() {
                   </p>
                   <a
                     href={channel.action.href}
-                    className="mt-5 inline-flex items-center gap-2 rounded-sm text-sm font-semibold text-primary hover:underline"
+                    className="mt-5 inline-flex items-center gap-2 rounded-sm text-sm font-semibold text-primary-strong hover:underline"
                   >
                     <Mail className="size-4 shrink-0" aria-hidden="true" />
                     {channel.action.label}
@@ -92,7 +92,7 @@ export default function ContactPage() {
 
         <GlowCard interactive={false} className="mt-10 rounded-panel p-6 lg:p-8">
           <h2 className="flex items-center gap-2.5 text-lg font-bold text-foreground">
-            <MapPin className="size-5 text-primary" aria-hidden="true" />
+            <MapPin className="size-5 text-primary-strong" aria-hidden="true" />
             Where we are
           </h2>
           <address className="mt-3 text-base leading-relaxed text-muted-foreground not-italic">
@@ -105,7 +105,7 @@ export default function ContactPage() {
             Operating in another city and want to be early?{" "}
             <a
               href={`mailto:${siteConfig.contact.salesEmail}`}
-              className="rounded-sm font-semibold text-primary hover:underline"
+              className="rounded-sm font-semibold text-primary-strong hover:underline"
             >
               Tell us where
             </a>

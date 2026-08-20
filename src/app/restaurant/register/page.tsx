@@ -34,14 +34,14 @@ export default function RestaurantRegisterPage() {
           Already listed?{" "}
           <Link
             href={routes.restaurantLogin()}
-            className="rounded-sm font-semibold text-primary hover:underline"
+            className="rounded-sm font-semibold text-primary-strong hover:underline"
           >
             Sign in to your console
           </Link>
           . Want to compare plans first?{" "}
           <Link
             href={routes.pricing()}
-            className="rounded-sm font-semibold text-primary hover:underline"
+            className="rounded-sm font-semibold text-primary-strong hover:underline"
           >
             View membership plans
           </Link>

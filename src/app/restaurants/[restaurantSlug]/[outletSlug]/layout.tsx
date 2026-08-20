@@ -45,7 +45,7 @@ export default async function OutletLayout({ children, params }: OutletLayoutPro
       <section className="relative isolate overflow-hidden border-b border-border pt-8 pb-0">
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_70%_at_10%_0%,rgba(253,236,232,0.85),transparent_62%)]"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_70%_at_10%_0%,rgb(var(--primary-rgb)/0.12),transparent_62%)]"
         />
 
         <Container>
@@ -87,22 +87,22 @@ export default async function OutletLayout({ children, params }: OutletLayoutPro
 
               <ul className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm text-muted-foreground">
                 <li className="flex items-center gap-2">
-                  <MapPin className="size-4 shrink-0 text-primary/70" aria-hidden="true" />
+                  <MapPin className="size-4 shrink-0 text-primary-strong/70" aria-hidden="true" />
                   {outlet.address}
                 </li>
                 {hours ? (
                   <li className="flex items-center gap-2">
-                    <Clock className="size-4 shrink-0 text-primary/70" aria-hidden="true" />
+                    <Clock className="size-4 shrink-0 text-primary-strong/70" aria-hidden="true" />
                     <span className="tabular-nums">
                       {hours.opens} – {hours.closes}
                     </span>
                   </li>
                 ) : null}
                 <li className="flex items-center gap-2">
-                  <Phone className="size-4 shrink-0 text-primary/70" aria-hidden="true" />
+                  <Phone className="size-4 shrink-0 text-primary-strong/70" aria-hidden="true" />
                   <a
                     href={`tel:${outlet.phone.replace(/-/g, "")}`}
-                    className="rounded-sm tabular-nums transition-colors hover:text-primary"
+                    className="rounded-sm tabular-nums transition-colors hover:text-primary-strong"
                   >
                     {outlet.phone}
                   </a>
@@ -121,7 +121,7 @@ export default async function OutletLayout({ children, params }: OutletLayoutPro
               {outlet.acceptsBookings ? (
                 <Link
                   href={routes.bookTable(restaurant.slug, outlet.slug)}
-                  className="inline-flex h-11 items-center rounded-pill border border-border bg-card px-5 text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                  className="inline-flex h-11 items-center rounded-pill border border-border bg-card px-5 text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary-strong"
                 >
                   Book a Table
                 </Link>

@@ -222,7 +222,7 @@ export function SearchOverlay({
                         key={term}
                         type="button"
                         onClick={() => goTo(routes.search(term))}
-                        className="rounded-pill border border-border px-3.5 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary-soft hover:text-primary"
+                        className="rounded-pill border border-border px-3.5 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary-soft hover:text-primary-strong"
                       >
                         {term}
                       </button>

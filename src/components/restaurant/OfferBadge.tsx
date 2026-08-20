@@ -47,7 +47,7 @@ export function OfferBadge({
     <span
       className={cn(
         "inline-flex items-center gap-1.5 rounded-control border border-primary/20 bg-primary-soft px-2 py-1",
-        "text-[0.6875rem] font-extrabold tracking-wide text-primary uppercase",
+        "text-[0.6875rem] font-extrabold tracking-wide text-primary-strong uppercase",
         className,
       )}
     >

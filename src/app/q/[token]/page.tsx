@@ -58,7 +58,7 @@ export default async function QrResolverPage({ params }: QrPageProps) {
   return (
     <Container className="flex min-h-[60vh] flex-col items-center justify-center py-20 text-center">
       <span className="grid size-16 place-items-center rounded-panel bg-primary-soft">
-        <ScanLine className="size-8 text-primary" aria-hidden="true" />
+        <ScanLine className="size-8 text-primary-strong" aria-hidden="true" />
       </span>
 
       <h1 className="mt-6 text-3xl font-extrabold tracking-[-0.03em] text-foreground sm:text-4xl">

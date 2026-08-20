@@ -34,7 +34,7 @@ export function RestaurantHero({ restaurant }: { restaurant: Restaurant }) {
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(20,13,11,0.94)_10%,rgba(20,13,11,0.72)_55%,rgba(20,13,11,0.5)_100%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgb(var(--ink-rgb)/0.94)_10%,rgb(var(--ink-rgb)/0.72)_55%,rgb(var(--ink-rgb)/0.5)_100%)]"
       />
 
       <Container className="pt-10 pb-12 lg:pt-14 lg:pb-16">

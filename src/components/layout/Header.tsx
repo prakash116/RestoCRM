@@ -128,7 +128,7 @@ export function Header({ searchIndex }: { searchIndex: SearchIndexEntry[] }) {
                         "block rounded-pill px-3 py-2 text-[0.9375rem] font-semibold whitespace-nowrap xl:px-3.5",
                         "transition-colors duration-200",
                         active
-                          ? "bg-primary-soft text-primary"
+                          ? "bg-primary-soft text-primary-strong"
                           : "text-muted-foreground hover:bg-muted hover:text-foreground",
                       )}
                     >

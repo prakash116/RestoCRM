@@ -55,7 +55,7 @@ export function BookingPanel({
       )}
     >
       <h2 className="flex items-center gap-2.5 text-lg font-bold text-foreground">
-        <CalendarCheck className="size-5 text-primary" aria-hidden="true" />
+        <CalendarCheck className="size-5 text-primary-strong" aria-hidden="true" />
         Book a table
       </h2>
       <p className="mt-2 text-sm text-muted-foreground">
@@ -77,7 +77,7 @@ export function BookingPanel({
           </span>
 
           <span className="min-w-0 flex-1">
-            <span className="block text-[0.6875rem] font-bold tracking-wide text-primary uppercase">
+            <span className="block text-[0.6875rem] font-bold tracking-wide text-primary-strong uppercase">
               Booking for
             </span>
             <span className="mt-0.5 flex items-center gap-1.5">
@@ -93,7 +93,7 @@ export function BookingPanel({
             <Link
               href={clearDishHref}
               aria-label={`Remove ${dish.name} from this booking`}
-              className="grid size-8 shrink-0 place-items-center rounded-full text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+              className="grid size-8 shrink-0 place-items-center rounded-full text-primary-strong transition-colors hover:bg-primary hover:text-primary-foreground"
             >
               <X className="size-4" aria-hidden="true" />
             </Link>
@@ -186,7 +186,7 @@ export function BookingPanel({
 
       <a
         href={`tel:${phone.replace(/-/g, "")}`}
-        className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-pill border border-border text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+        className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-pill border border-border text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary-strong"
       >
         <Phone className="size-4" aria-hidden="true" />
         Call {outletName}

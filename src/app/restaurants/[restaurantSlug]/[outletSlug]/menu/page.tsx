@@ -83,7 +83,7 @@ export default async function OutletMenuPage({ params }: MenuPageProps) {
             <section key={category.id} aria-labelledby={`menu-${category.id}`}>
               <h3
                 id={`menu-${category.id}`}
-                className="text-xs font-bold tracking-[0.16em] text-primary uppercase"
+                className="text-xs font-bold tracking-[0.16em] text-primary-strong uppercase"
               >
                 {category.name}
               </h3>
@@ -96,7 +96,7 @@ export default async function OutletMenuPage({ params }: MenuPageProps) {
                         <DietMark type={dish.vegType} />
                         <h4 className="text-[0.9375rem] font-bold text-foreground">{dish.name}</h4>
                         {dish.isSignature ? (
-                          <span className="rounded-pill bg-primary-soft px-2 py-0.5 text-[0.625rem] font-extrabold tracking-wide text-primary uppercase">
+                          <span className="rounded-pill bg-primary-soft px-2 py-0.5 text-[0.625rem] font-extrabold tracking-wide text-primary-strong uppercase">
                             Signature
                           </span>
                         ) : null}
@@ -149,7 +149,7 @@ export default async function OutletMenuPage({ params }: MenuPageProps) {
                       ) : (
                         <a
                           href={`tel:${outlet.phone.replace(/-/g, "")}`}
-                          className="inline-flex h-8 items-center justify-center gap-1 rounded-pill border border-border px-3 text-xs font-bold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                          className="inline-flex h-8 items-center justify-center gap-1 rounded-pill border border-border px-3 text-xs font-bold text-foreground transition-colors hover:border-primary/40 hover:text-primary-strong"
                         >
                           <Phone className="size-3" aria-hidden="true" />
                           Call

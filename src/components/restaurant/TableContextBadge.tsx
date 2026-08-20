@@ -11,7 +11,7 @@ export function TableContextBadge({ outletName }: { outletName: string }) {
   if (tableNumber === null) return null;
 
   return (
-    <p className="mb-6 inline-flex items-center gap-2 rounded-pill border border-primary/20 bg-primary-soft px-4 py-2 text-sm font-semibold text-primary">
+    <p className="mb-6 inline-flex items-center gap-2 rounded-pill border border-primary/20 bg-primary-soft px-4 py-2 text-sm font-semibold text-primary-strong">
       <QrCode className="size-4" aria-hidden="true" />
       You are at Table {tableNumber} · {outletName}
     </p>

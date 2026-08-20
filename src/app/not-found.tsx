@@ -15,10 +15,10 @@ export default function NotFound() {
   return (
     <Container className="flex min-h-[62vh] flex-col items-center justify-center py-20 text-center">
       <span className="grid size-16 place-items-center rounded-panel bg-primary-soft">
-        <Compass className="size-8 text-primary" aria-hidden="true" />
+        <Compass className="size-8 text-primary-strong" aria-hidden="true" />
       </span>
 
-      <p className="mt-6 text-sm font-bold tracking-[0.16em] text-primary uppercase">Error 404</p>
+      <p className="mt-6 text-sm font-bold tracking-[0.16em] text-primary-strong uppercase">Error 404</p>
 
       <h1 className="mt-3 text-3xl font-extrabold tracking-[-0.03em] text-foreground sm:text-4xl">
         We could not find that page
@@ -48,7 +48,7 @@ export default function NotFound() {
             <li key={cuisine.id}>
               <Link
                 href={routes.cuisine(cuisine.slug)}
-                className="inline-flex rounded-pill border border-border bg-card px-4 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary-soft hover:text-primary"
+                className="inline-flex rounded-pill border border-border bg-card px-4 py-2 text-sm font-semibold text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary-soft hover:text-primary-strong"
               >
                 {cuisine.name}
               </Link>

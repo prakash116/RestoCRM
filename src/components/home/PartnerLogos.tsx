@@ -82,7 +82,7 @@ function PartnerTile({ brand, className }: { brand: PartnerBrand; className?: st
     >
       <span
         aria-hidden="true"
-        className="grid size-11 shrink-0 place-items-center rounded-control bg-[linear-gradient(135deg,var(--primary-soft),var(--secondary))] text-sm font-extrabold tracking-tight text-primary"
+        className="grid size-11 shrink-0 place-items-center rounded-control bg-[linear-gradient(135deg,var(--primary-soft),var(--secondary))] text-sm font-extrabold tracking-tight text-primary-strong"
       >
         {brand.monogram}
       </span>

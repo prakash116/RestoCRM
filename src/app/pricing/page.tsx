@@ -78,7 +78,7 @@ export default function PricingPage() {
           Still deciding? Write to{" "}
           <a
             href={`mailto:${siteConfig.contact.salesEmail}`}
-            className="rounded-sm font-semibold text-primary hover:underline"
+            className="rounded-sm font-semibold text-primary-strong hover:underline"
           >
             {siteConfig.contact.salesEmail}
           </a>{" "}

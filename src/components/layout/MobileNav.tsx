@@ -137,7 +137,7 @@ export function MobileNav({
               <Link
                 href={routes.restaurantLogin()}
                 onClick={onClose}
-                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-pill border border-border text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-pill border border-border text-[0.9375rem] font-semibold text-foreground transition-colors hover:border-primary/40 hover:text-primary-strong"
               >
                 <LogIn className="size-4" aria-hidden="true" />
                 Restaurant Login

@@ -44,6 +44,8 @@ export function FavoriteButton({
       <Heart
         className={cn(
           "size-[1.05rem] transition-colors duration-200",
+          // Fill and stroke must be the same step, or the saved heart reads as
+          // a two-tone icon.
           isFavorite ? "fill-primary text-primary" : "text-ink/70",
         )}
         aria-hidden="true"

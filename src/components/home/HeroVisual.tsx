@@ -22,10 +22,10 @@ export function HeroVisual() {
       <HeroAmbientLoader />
 
       <div className="relative">
-        {/* Warm halo behind the frame. */}
+        {/* Brand halo behind the frame. */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] bg-[radial-gradient(60%_55%_at_60%_35%,rgba(240,161,42,0.28),transparent_70%)] blur-2xl"
+          className="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] bg-[radial-gradient(60%_55%_at_60%_35%,rgb(var(--accent-rgb)/0.28),transparent_70%)] blur-2xl"
         />
 
         <div className="relative aspect-4/5 w-full overflow-hidden rounded-panel border border-white/60 bg-muted shadow-lift sm:aspect-4/5 lg:aspect-[5/6]">
@@ -42,7 +42,7 @@ export function HeroVisual() {
           />
           <span
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(190deg,rgba(26,18,16,0)_45%,rgba(26,18,16,0.45)_100%)]"
+            className="absolute inset-0 bg-[linear-gradient(190deg,rgb(var(--ink-rgb)/0)_45%,rgb(var(--ink-rgb)/0.45)_100%)]"
           />
         </div>
 
@@ -106,7 +106,7 @@ export function HeroVisual() {
         >
           <div className="flex items-center gap-3">
             <span className="grid size-10 shrink-0 place-items-center rounded-full bg-primary-soft">
-              <QrCode className="size-5 text-primary" aria-hidden="true" />
+              <QrCode className="size-5 text-primary-strong" aria-hidden="true" />
             </span>
             <span className="min-w-0">
               <span className="block text-[0.8125rem] leading-tight font-bold text-ink">

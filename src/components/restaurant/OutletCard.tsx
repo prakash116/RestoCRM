@@ -53,7 +53,7 @@ export function OutletCard({
 
       <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
         <li className="flex items-start gap-2.5">
-          <MapPin className="mt-0.5 size-4 shrink-0 text-primary/70" aria-hidden="true" />
+          <MapPin className="mt-0.5 size-4 shrink-0 text-primary-strong/70" aria-hidden="true" />
           <span>
             {outlet.address}
             <span className="mt-0.5 block text-xs">
@@ -62,22 +62,22 @@ export function OutletCard({
           </span>
         </li>
         <li className="flex items-center gap-2.5">
-          <Clock className="size-4 shrink-0 text-primary/70" aria-hidden="true" />
+          <Clock className="size-4 shrink-0 text-primary-strong/70" aria-hidden="true" />
           <span className="tabular-nums">{serviceWindow(outlet)}</span>
         </li>
         <li className="flex items-center gap-2.5">
-          <Phone className="size-4 shrink-0 text-primary/70" aria-hidden="true" />
+          <Phone className="size-4 shrink-0 text-primary-strong/70" aria-hidden="true" />
           <span className="tabular-nums">{outlet.phone}</span>
         </li>
         <li className="flex items-center gap-2.5">
-          <Users className="size-4 shrink-0 text-primary/70" aria-hidden="true" />
+          <Users className="size-4 shrink-0 text-primary-strong/70" aria-hidden="true" />
           <span>Seats {outlet.seatingCapacity}</span>
         </li>
       </ul>
 
       <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-border pt-4">
         {outlet.qrEnabled ? (
-          <span className="inline-flex items-center gap-1.5 rounded-pill bg-primary-soft px-2.5 py-1 text-[0.6875rem] font-bold tracking-wide text-primary uppercase">
+          <span className="inline-flex items-center gap-1.5 rounded-pill bg-primary-soft px-2.5 py-1 text-[0.6875rem] font-bold tracking-wide text-primary-strong uppercase">
             <QrCode className="size-3" aria-hidden="true" />
             QR menu
           </span>
@@ -90,7 +90,7 @@ export function OutletCard({
 
         <span
           aria-hidden="true"
-          className="ml-auto inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold text-primary"
+          className="ml-auto inline-flex items-center gap-1.5 text-[0.8125rem] font-semibold text-primary-strong"
         >
           View outlet
           <ArrowRight className="size-3.5" />

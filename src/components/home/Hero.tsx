@@ -35,7 +35,7 @@ export function Hero({ searchIndex }: { searchIndex: SearchIndexEntry[] }) {
       {/* Layered warm background. Pure CSS — no image cost before the fold. */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(70%_60%_at_15%_0%,rgba(253,236,232,0.9),transparent_60%),radial-gradient(55%_50%_at_92%_10%,rgba(253,242,227,0.95),transparent_65%)]"
+        className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(70%_60%_at_15%_0%,rgb(var(--primary-rgb)/0.14),transparent_60%),radial-gradient(55%_50%_at_92%_10%,rgb(var(--accent-rgb)/0.20),transparent_65%)]"
       />
       <span
         aria-hidden="true"
@@ -58,7 +58,7 @@ export function Hero({ searchIndex }: { searchIndex: SearchIndexEntry[] }) {
               style={{ animationDelay: "110ms" }}
             >
               Discover Delhi&rsquo;s{" "}
-              <span className="font-display font-normal text-primary italic">Best</span> Restaurants
+              <span className="font-display font-normal text-primary-strong italic">Best</span> Restaurants
             </h1>
 
             <p
@@ -88,7 +88,7 @@ export function Hero({ searchIndex }: { searchIndex: SearchIndexEntry[] }) {
                 <Link
                   key={cuisine.id}
                   href={routes.cuisine(cuisine.slug)}
-                  className="rounded-pill border border-border bg-card/70 px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary-soft hover:text-primary"
+                  className="rounded-pill border border-border bg-card/70 px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary-soft hover:text-primary-strong"
                 >
                   {cuisine.name}
                 </Link>
@@ -101,7 +101,7 @@ export function Hero({ searchIndex }: { searchIndex: SearchIndexEntry[] }) {
             >
               <Link
                 href={routes.listRestaurant()}
-                className="group inline-flex h-12 items-center gap-2 rounded-pill border border-border bg-card px-6 text-[0.9375rem] font-semibold text-foreground shadow-soft transition-[border-color,color,box-shadow] duration-200 hover:border-primary/40 hover:text-primary hover:shadow-card"
+                className="group inline-flex h-12 items-center gap-2 rounded-pill border border-border bg-card px-6 text-[0.9375rem] font-semibold text-foreground shadow-soft transition-[border-color,color,box-shadow] duration-200 hover:border-primary/40 hover:text-primary-strong hover:shadow-card"
               >
                 List Your Restaurant
                 <ArrowRight
@@ -111,7 +111,7 @@ export function Hero({ searchIndex }: { searchIndex: SearchIndexEntry[] }) {
               </Link>
               <Link
                 href={routes.pricing()}
-                className="inline-flex h-12 items-center rounded-pill px-4 text-[0.9375rem] font-semibold text-muted-foreground transition-colors hover:text-primary"
+                className="inline-flex h-12 items-center rounded-pill px-4 text-[0.9375rem] font-semibold text-muted-foreground transition-colors hover:text-primary-strong"
               >
                 View membership plans
               </Link>

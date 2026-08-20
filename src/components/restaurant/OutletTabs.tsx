@@ -43,7 +43,7 @@ export function OutletTabs({
                 className={cn(
                   "inline-flex h-12 items-center border-b-2 px-4 text-[0.9375rem] font-semibold whitespace-nowrap transition-colors",
                   active
-                    ? "border-primary text-primary"
+                    ? "border-primary text-primary-strong"
                     : "border-transparent text-muted-foreground hover:text-foreground",
                 )}
               >

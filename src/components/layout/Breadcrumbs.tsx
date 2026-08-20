@@ -64,7 +64,7 @@ export function Breadcrumbs({
                       "rounded-sm transition-colors",
                       tone === "inverse"
                         ? "text-ink-muted hover:text-ink-foreground"
-                        : "text-muted-foreground hover:text-primary",
+                        : "text-muted-foreground hover:text-primary-strong",
                     )}
                   >
                     {crumb.name}
