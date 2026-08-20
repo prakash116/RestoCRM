@@ -8,44 +8,62 @@
    ========================================================================== */
 
 :root {
-  /* Surfaces & text */
-  --background: #fffcf9;
-  --foreground: #1a1310;
+  /* Surfaces & text — cool neutrals, tuned to sit under an indigo brand. */
+  --background: #fcfdff;
+  --foreground: #12151f;
   --card: #ffffff;
-  --card-foreground: #1a1310;
+  --card-foreground: #12151f;
 
   /* Brand */
-  --primary: #d63a28;
+  --primary: #6379c2;
   --primary-foreground: #ffffff;
-  --primary-strong: #b02b1c;
-  --primary-soft: #fdece8;
+  --primary-strong: #46599d;
+  --primary-soft: #eef1fb;
+
+  /**
+   * Brand as bare RGB channels.
+   *
+   * Decorative washes need the brand at partial alpha, which a hex token
+   * cannot express. Exposing the channels here means gradients and glows in
+   * components read `rgb(var(--primary-rgb)/0.16)` instead of hardcoding the
+   * colour — so re-skinning really is a change to this block alone.
+   */
+  --primary-rgb: 99 121 194;
+  /* Lighter periwinkle used as the counter-light in dark panels and haloes. */
+  --accent: #93a7e0;
+  --accent-rgb: 147 167 224;
+  /* Drives every shadow, so elevation stays tinted to the palette. */
+  --ink-rgb: 18 21 31;
 
   /* Supporting neutrals */
-  --secondary: #f6f0ea;
-  --secondary-foreground: #33241d;
-  --muted: #f7f3ef;
-  --muted-foreground: #6b605a;
-  --border: #ece3da;
-  --input: #e3d8cd;
-  --ring: #d63a28;
+  --secondary: #f1f3fa;
+  --secondary-foreground: #232838;
+  --muted: #f4f6fb;
+  --muted-foreground: #5d6478;
+  --border: #e2e6f2;
+  --input: #d3d9ea;
+  --ring: #6379c2;
 
   /* Semantic */
   --success: #15803d;
-  --success-soft: #e8f6ed;
+  /* Lightened from #e7f6ec, which left success text at 4.49:1 — just under AA. */
+  --success-soft: #ecf8f1;
   --warning: #b45309;
-  --warning-soft: #fdf2e3;
+  --warning-soft: #fdf3e5;
   --danger: #b91c1c;
-  --danger-soft: #fdeced;
+  --danger-soft: #fdecec;
 
-  /* Domain-specific: Indian FSSAI diet marks + review stars */
+  /* Domain-specific: Indian FSSAI diet marks + review stars.
+     Amber stays for stars — it is a diner convention, not a brand choice,
+     and it reads as a deliberate complement against the indigo. */
   --veg: #1a7f4b;
   --nonveg: #a62c2c;
   --star: #f0a12a;
 
   /* Ink surface used by the dark promotional panels */
-  --ink: #1a1210;
-  --ink-foreground: #f8f1ea;
-  --ink-muted: #b8a89c;
+  --ink: #141827;
+  --ink-foreground: #eef0f7;
+  --ink-muted: #a3aabf;
 
   /* Geometry */
   --radius: 1rem;
@@ -91,11 +109,12 @@
   --radius-panel: calc(var(--radius) * 1.75);
   --radius-pill: 999px;
 
-  /* Warm, low-spread shadows. Premium surfaces sit close to the page. */
-  --shadow-soft: 0 1px 2px rgb(26 19 16 / 0.04), 0 4px 12px rgb(26 19 16 / 0.04);
-  --shadow-card: 0 1px 2px rgb(26 19 16 / 0.05), 0 8px 24px -8px rgb(26 19 16 / 0.1);
-  --shadow-lift: 0 2px 4px rgb(26 19 16 / 0.05), 0 18px 40px -12px rgb(26 19 16 / 0.18);
-  --shadow-glow: 0 18px 45px -14px rgb(214 58 40 / 0.45);
+  /* Low-spread shadows tinted with the palette's ink rather than pure black,
+     so elevation never looks grey against the tinted surfaces. */
+  --shadow-soft: 0 1px 2px rgb(var(--ink-rgb) / 0.05), 0 4px 12px rgb(var(--ink-rgb) / 0.05);
+  --shadow-card: 0 1px 2px rgb(var(--ink-rgb) / 0.06), 0 8px 24px -8px rgb(var(--ink-rgb) / 0.11);
+  --shadow-lift: 0 2px 4px rgb(var(--ink-rgb) / 0.06), 0 18px 40px -12px rgb(var(--ink-rgb) / 0.19);
+  --shadow-glow: 0 18px 45px -14px rgb(var(--primary-rgb) / 0.45);
 
   --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;

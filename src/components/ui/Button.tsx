@@ -15,10 +15,10 @@ const variants: Record<ButtonVariant, string> = {
   primary:
     "bg-primary text-primary-foreground shadow-soft hover:bg-primary-strong hover:shadow-glow",
   secondary:
-    "bg-card text-foreground border border-border shadow-soft hover:border-primary/40 hover:text-primary",
+    "bg-card text-foreground border border-border shadow-soft hover:border-primary/40 hover:text-primary-strong",
   ghost: "text-foreground hover:bg-muted",
   ink: "bg-ink text-ink-foreground hover:bg-ink/90 shadow-soft",
-  soft: "bg-primary-soft text-primary hover:bg-primary hover:text-primary-foreground",
+  soft: "bg-primary-soft text-primary-strong hover:bg-primary hover:text-primary-foreground",
   "outline-light":
     "border border-white/30 text-white hover:bg-white hover:text-ink backdrop-blur-sm",
 };

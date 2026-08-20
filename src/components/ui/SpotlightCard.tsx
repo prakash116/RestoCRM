@@ -53,7 +53,7 @@ export function SpotlightCard({
         aria-hidden="true"
         className={cn(
           "pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-300",
-          "bg-[radial-gradient(320px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgba(214,58,40,0.13),transparent_72%)]",
+          "bg-[radial-gradient(320px_circle_at_var(--spot-x,50%)_var(--spot-y,0px),rgb(var(--primary-rgb)/0.13),transparent_72%)]",
           "motion-safe:group-hover:opacity-100 max-[1023px]:hidden",
         )}
       />

@@ -48,7 +48,7 @@ export function SectionHeading({
           <p
             className={cn(
               "mb-3 text-xs font-bold tracking-[0.16em] uppercase",
-              inverse ? "text-primary-soft" : "text-primary",
+              inverse ? "text-primary-soft" : "text-primary-strong",
             )}
           >
             {eyebrow}
@@ -84,7 +84,7 @@ export function SectionHeading({
             "group inline-flex shrink-0 items-center gap-2 rounded-pill border px-5 py-2.5 text-sm font-semibold transition-colors",
             inverse
               ? "border-white/20 text-ink-foreground hover:border-white/50 hover:bg-white/10"
-              : "border-border bg-card text-foreground shadow-soft hover:border-primary/40 hover:text-primary",
+              : "border-border bg-card text-foreground shadow-soft hover:border-primary/40 hover:text-primary-strong",
           )}
         >
           {action.label}

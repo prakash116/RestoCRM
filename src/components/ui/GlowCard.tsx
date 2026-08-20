@@ -32,12 +32,12 @@ export function GlowCard({
         className,
       )}
     >
-      {/* Warm ambient wash — sits behind content, never intercepts pointers. */}
+      {/* Brand ambient wash — sits behind content, never intercepts pointers. */}
       <span
         aria-hidden="true"
         className={cn(
           "pointer-events-none absolute -top-24 -right-16 -z-10 size-56 rounded-full",
-          "bg-[radial-gradient(circle,rgba(214,58,40,0.16),transparent_68%)] opacity-0 blur-2xl",
+          "bg-[radial-gradient(circle,rgb(var(--primary-rgb)/0.16),transparent_68%)] opacity-0 blur-2xl",
           "transition-opacity duration-500",
           interactive && "group-hover:opacity-100",
         )}

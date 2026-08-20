@@ -49,7 +49,7 @@ export function Logo({
           )}
         >
           Dine
-          <span className="font-semibold text-primary">Board</span>
+          <span className="font-semibold text-primary-strong">Board</span>
         </span>
       ) : null}
     </Link>

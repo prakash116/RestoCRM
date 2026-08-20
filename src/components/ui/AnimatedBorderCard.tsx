@@ -28,13 +28,13 @@ export function AnimatedBorderCard({
         className={cn(
           "pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-panel",
           // Static brand rim; the spin only runs when motion is allowed.
-          "bg-[linear-gradient(140deg,var(--primary),rgba(240,161,42,0.85),var(--primary))]",
+          "bg-[linear-gradient(140deg,var(--primary),rgb(var(--accent-rgb)/0.85),var(--primary))]",
         )}
       >
         <span
           className={cn(
             "absolute top-1/2 left-1/2 aspect-square w-[180%] -translate-x-1/2 -translate-y-1/2",
-            "bg-[conic-gradient(from_0deg,transparent_0deg,var(--primary)_70deg,rgba(240,161,42,0.9)_140deg,transparent_220deg,transparent_360deg)]",
+            "bg-[conic-gradient(from_0deg,transparent_0deg,var(--primary)_70deg,rgb(var(--accent-rgb)/0.9)_140deg,transparent_220deg,transparent_360deg)]",
             "motion-safe:animate-[spin_9s_linear_infinite] motion-reduce:hidden",
           )}
         />

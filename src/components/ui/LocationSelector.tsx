@@ -55,7 +55,7 @@ export function LocationSelector({
             : "border border-border bg-card text-foreground hover:border-primary/40",
         )}
       >
-        <MapPin className="size-4 shrink-0 text-primary" aria-hidden="true" />
+        <MapPin className="size-4 shrink-0 text-primary-strong" aria-hidden="true" />
         <span className="truncate">{label}</span>
         <ChevronDown
           className={cn(
@@ -107,7 +107,7 @@ export function LocationSelector({
                     <span className="font-semibold">{city.name}</span>
                     {city.available ? (
                       city.id === cityId ? (
-                        <Check className="size-4 text-primary" aria-hidden="true" />
+                        <Check className="size-4 text-primary-strong" aria-hidden="true" />
                       ) : null
                     ) : (
                       <span className="text-[0.6875rem] font-semibold tracking-wide text-muted-foreground/80 uppercase">

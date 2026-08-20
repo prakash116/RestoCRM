@@ -41,20 +41,20 @@ export function GradientCTA({
         />
       ) : null}
 
-      {/* Warm brand wash from the lower-left. */}
+      {/* Brand wash from the lower-left. */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-32 -left-24 -z-10 size-[30rem] rounded-full bg-[radial-gradient(circle,rgba(214,58,40,0.55),transparent_65%)] blur-3xl"
+        className="pointer-events-none absolute -bottom-32 -left-24 -z-10 size-[30rem] rounded-full bg-[radial-gradient(circle,rgb(var(--primary-rgb)/0.55),transparent_65%)] blur-3xl"
       />
-      {/* Saffron counter-light from the upper-right. */}
+      {/* Lighter periwinkle counter-light from the upper-right. */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 -right-20 -z-10 size-[26rem] rounded-full bg-[radial-gradient(circle,rgba(240,161,42,0.4),transparent_66%)] blur-3xl"
+        className="pointer-events-none absolute -top-40 -right-20 -z-10 size-[26rem] rounded-full bg-[radial-gradient(circle,rgb(var(--accent-rgb)/0.4),transparent_66%)] blur-3xl"
       />
       {/* Base scrim guarantees legibility over the photograph. */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(160deg,rgba(20,14,11,0.86),rgba(20,14,11,0.62))]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(160deg,rgb(var(--ink-rgb)/0.86),rgb(var(--ink-rgb)/0.62))]"
       />
 
       {children}

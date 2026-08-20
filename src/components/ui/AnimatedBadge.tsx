@@ -18,7 +18,7 @@ export function AnimatedBadge({
   className?: string;
 }) {
   const tones = {
-    brand: "border-primary/20 bg-primary-soft text-primary",
+    brand: "border-primary/20 bg-primary-soft text-primary-strong",
     neutral: "border-border bg-muted text-muted-foreground",
     success: "border-success/20 bg-success-soft text-success",
     inverse: "border-white/15 bg-white/10 text-ink-foreground backdrop-blur-sm",
