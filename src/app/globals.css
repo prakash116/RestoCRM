@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   DESIGN TOKENS
+   Single source of truth for the brand. To re-skin the platform, change the
+   values in `:root` only — every component consumes these through Tailwind
+   utilities generated in the `@theme inline` block below.
+   ========================================================================== */
+
+:root {
+  /* Surfaces & text */
+  --background: #fffcf9;
+  --foreground: #1a1310;
+  --card: #ffffff;
+  --card-foreground: #1a1310;
+
+  /* Brand */
+  --primary: #d63a28;
+  --primary-foreground: #ffffff;
+  --primary-strong: #b02b1c;
+  --primary-soft: #fdece8;
+
+  /* Supporting neutrals */
+  --secondary: #f6f0ea;
+  --secondary-foreground: #33241d;
+  --muted: #f7f3ef;
+  --muted-foreground: #6b605a;
+  --border: #ece3da;
+  --input: #e3d8cd;
+  --ring: #d63a28;
+
+  /* Semantic */
+  --success: #15803d;
+  --success-soft: #e8f6ed;
+  --warning: #b45309;
+  --warning-soft: #fdf2e3;
+  --danger: #b91c1c;
+  --danger-soft: #fdeced;
+
+  /* Domain-specific: Indian FSSAI diet marks + review stars */
+  --veg: #1a7f4b;
+  --nonveg: #a62c2c;
+  --star: #f0a12a;
+
+  /* Ink surface used by the dark promotional panels */
+  --ink: #1a1210;
+  --ink-foreground: #f8f1ea;
+  --ink-muted: #b8a89c;
+
+  /* Geometry */
+  --radius: 1rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-soft: var(--primary-soft);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  --color-veg: var(--veg);
+  --color-nonveg: var(--nonveg);
+  --color-star: var(--star);
+
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-ink-muted: var(--ink-muted);
+
+  /* Named radii — Tailwind's own scale is left untouched on purpose. */
+  --radius-control: calc(var(--radius) * 0.75);
+  --radius-card: var(--radius);
+  --radius-panel: calc(var(--radius) * 1.75);
+  --radius-pill: 999px;
+
+  /* Warm, low-spread shadows. Premium surfaces sit close to the page. */
+  --shadow-soft: 0 1px 2px rgb(26 19 16 / 0.04), 0 4px 12px rgb(26 19 16 / 0.04);
+  --shadow-card: 0 1px 2px rgb(26 19 16 / 0.05), 0 8px 24px -8px rgb(26 19 16 / 0.1);
+  --shadow-lift: 0 2px 4px rgb(26 19 16 / 0.05), 0 18px 40px -12px rgb(26 19 16 / 0.18);
+  --shadow-glow: 0 18px 45px -14px rgb(214 58 40 / 0.45);
+
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  /* Above-the-fold entrance. CSS rather than JS so hero copy paints on the
+     first frame instead of waiting for hydration — animating the LCP element
+     from JavaScript is what makes "premium" pages score badly. */
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem; /* clears the sticky header on #anchor jumps */
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    /* Guards against any single wide child creating a horizontal scrollbar. */
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, on-brand focus ring for every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Hide the ring for pointer users who click a button, keep it for keyboards. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+/* ==========================================================================
+   UTILITIES
+   ========================================================================== */
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility text-balance-tight {
+  text-wrap: balance;
+  letter-spacing: -0.025em;
+}
+
+/* Screen-reader-only text that becomes visible when focused (skip link). */
+@utility sr-focusable {
+  &:not(:focus) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   Motion for React reads this too, but CSS-driven effects need the guard here.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
