@@ -1,4 +1,6 @@
-# DineBoard
+# RestoCRM
+
+The customer-facing product in this repository is branded **DineBoard**.
 
 A public marketplace for a multi-tenant restaurant technology platform, launching in **Delhi, India**.
 
@@ -33,6 +35,13 @@ npm run dev          # http://localhost:3000
 
 Set this per environment — canonical tags pointing at the wrong host is the
 single most common way to lose search rankings on a preview deploy.
+
+### GitHub Pages
+
+Pushes to `main` are verified, statically exported, and deployed by
+`.github/workflows/deploy-pages.yml`.
+
+Live site: <https://prakash116.github.io/RestoCRM/>
 
 ---
 
@@ -117,11 +126,11 @@ independently.
 
 ```
 scan → /q/[token] → resolve restaurant → resolve outlet → resolve table
-     → redirect (307) → /restaurants/{r}/{o}/menu?table=N
+     → client redirect → /restaurants/{r}/{o}/menu?table=N
 ```
 
-Resolution happens server-side in one hop, so the diner goes from camera to menu
-with no client-side fetch. Tokens are opaque and resolve through
+Known demo tokens are prerendered as lightweight entry pages, so the diner goes
+from camera to menu without a data fetch. Tokens are opaque and resolve through
 `src/data/qr-tokens.ts` — replace `resolveQrToken()` with the QR service and
 nothing else changes. Demo tokens: `ct-cp-t12`, `mfr-gp-t04`, `ut-np-t07`,
 `tn-hk-venue`.
