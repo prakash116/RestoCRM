@@ -5,6 +5,8 @@ import { restaurants } from "@/data/restaurants";
 import { absoluteUrl } from "@/lib/seo/site";
 import { routes } from "@/lib/utils/routes";
 
+export const dynamic = "force-static";
+
 /**
  * XML sitemap.
  *

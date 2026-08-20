@@ -61,3 +61,10 @@ export type SiteConfig = typeof siteConfig;
 export function absoluteUrl(path = "/"): string {
   return `${siteConfig.url}${path.startsWith("/") ? path : `/${path}`}`;
 }
+
+/** Prefixes a root-relative path with the deployment subpath, when present. */
+export function sitePath(path = "/"): string {
+  const basePath = new URL(siteConfig.url).pathname.replace(/\/$/, "");
+  const pathname = path.startsWith("/") ? path : `/${path}`;
+  return `${basePath}${pathname}`;
+}

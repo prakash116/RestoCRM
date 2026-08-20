@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
-import { absoluteUrl } from "@/lib/seo/site";
+import { absoluteUrl, sitePath } from "@/lib/seo/site";
+
+export const dynamic = "force-static";
 
 /**
  * Crawl rules.
@@ -14,8 +16,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
-        disallow: ["/q/", "/restaurant/login", "/api/"],
+        allow: sitePath("/"),
+        disallow: [sitePath("/q/"), sitePath("/restaurant/login"), sitePath("/api/")],
       },
     ],
     sitemap: absoluteUrl("/sitemap.xml"),
