@@ -97,6 +97,13 @@ export const routes = {
    */
   qr: (token: string) => `/q/${token}`,
 
+  /* ---- Internal dashboard ----------------------------------------------- */
+
+  dashboard: () => "/dashboard",
+  dashboardLogin: () => "/dashboard/login",
+  dashboardThemes: () => "/dashboard/themes",
+  dashboardTheme: (themeSlug: string) => `/dashboard/themes/${themeSlug}`,
+
   /* ---- Marketing -------------------------------------------------------- */
 
   offers: () => "/restaurants?offers=1",
