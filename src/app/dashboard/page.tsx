@@ -1,12 +1,12 @@
 import { AuthGate } from "@/components/dashboard/AuthGate";
-import { DashboardOverview } from "@/components/dashboard/DashboardOverview";
+import { AnalyticsReport } from "@/components/dashboard/analytics/AnalyticsReport";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 
 export default function DashboardPage() {
   return (
     <AuthGate>
       <DashboardShell>
-        <DashboardOverview />
+        <AnalyticsReport />
       </DashboardShell>
     </AuthGate>
   );

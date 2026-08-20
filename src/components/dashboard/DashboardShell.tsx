@@ -9,7 +9,6 @@ import {
   LogOut,
   Palette,
   ShieldCheck,
-  WalletCards,
 } from "lucide-react";
 
 import { LogoMark } from "@/components/ui/Logo";
@@ -21,7 +20,6 @@ import { routes } from "@/lib/utils/routes";
 const nav = [
   { label: "Overview", href: routes.dashboard(), icon: LayoutDashboard },
   { label: "Analytics", href: routes.dashboardAnalytics(), icon: ChartNoAxesCombined },
-  { label: "Revenue", href: routes.dashboardRevenue(), icon: WalletCards },
   { label: "Themes", href: routes.dashboardThemes(), icon: Palette },
 ];
 
@@ -34,6 +32,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     state.theme.themes.find((theme) => theme.id === state.theme.activeThemeId),
   );
   const reportingPage =
+    pathname === routes.dashboard() ||
     pathname.startsWith(routes.dashboardAnalytics()) ||
     pathname.startsWith(routes.dashboardRevenue());
 
