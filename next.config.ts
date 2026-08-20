@@ -14,9 +14,11 @@ const nextConfig: NextConfig = {
     : {}),
 
   images: {
-    // GitHub Pages has no image-optimization server. Keep optimization enabled
-    // for normal Node.js deployments and use source images in the static export.
-    unoptimized: isGitHubPages,
+    // Unsplash is backed by Imgix, so let its CDN perform the resize instead of
+    // proxying every image through the Next.js server. This also works for the
+    // GitHub Pages static export, where there is no /_next/image endpoint.
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
     // Placeholder editorial imagery. Replace this host with the platform CDN
     // once real restaurant assets are uploaded — see `src/data/images.ts`.
     remotePatterns: [
