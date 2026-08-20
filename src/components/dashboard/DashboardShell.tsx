@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ExternalLink, LayoutDashboard, LogOut, Palette, ShieldCheck } from "lucide-react";
+import {
+  ChartNoAxesCombined,
+  ExternalLink,
+  LayoutDashboard,
+  LogOut,
+  Palette,
+  ShieldCheck,
+} from "lucide-react";
 
 import { LogoMark } from "@/components/ui/Logo";
 import { signOut } from "@/lib/features/auth/authSlice";
@@ -12,6 +19,7 @@ import { routes } from "@/lib/utils/routes";
 
 const nav = [
   { label: "Overview", href: routes.dashboard(), icon: LayoutDashboard },
+  { label: "Analytics", href: routes.dashboardAnalytics(), icon: ChartNoAxesCombined },
   { label: "Themes", href: routes.dashboardThemes(), icon: Palette },
 ];
 
@@ -37,8 +45,11 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           </span>
         </div>
 
-        <nav aria-label="Dashboard" className="px-3 pb-3 lg:pb-5">
-          <ul className="flex gap-1 lg:flex-col">
+        <nav
+          aria-label="Dashboard"
+          className="scrollbar-none overflow-x-auto px-3 pb-3 lg:overflow-visible lg:pb-5"
+        >
+          <ul className="flex min-w-max gap-1 lg:min-w-0 lg:flex-col">
             {nav.map((item) => {
               const Icon = item.icon;
               const active =
@@ -46,12 +57,12 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                 (item.href !== routes.dashboard() && pathname.startsWith(item.href));
 
               return (
-                <li key={item.href} className="flex-1 lg:flex-none">
+                <li key={item.href} className="lg:flex-none">
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "flex items-center justify-center gap-2.5 rounded-control px-3 py-2.5 text-sm font-semibold transition-colors lg:justify-start",
+                      "flex min-w-[6.75rem] items-center justify-center gap-2 rounded-control px-3 py-2.5 text-sm font-semibold transition-colors lg:min-w-0 lg:justify-start lg:gap-2.5",
                       active
                         ? "bg-primary-soft text-primary-strong"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground",
@@ -110,10 +121,19 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           <p className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
             <ShieldCheck className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
             <span>
-              Demo console. Sign-in is checked in the browser and themes are saved to this
-              browser&rsquo;s local storage — it is not authentication and not shared with other
-              visitors. Use <strong className="font-semibold">Copy CSS</strong> on a theme to
-              publish it for everyone.
+              {pathname.startsWith(routes.dashboardAnalytics()) ? (
+                <>
+                  Analytics demo. Report figures are illustrative UI data and are not connected to
+                  a billing, membership or customer database.
+                </>
+              ) : (
+                <>
+                  Demo console. Sign-in is checked in the browser and themes are saved to this
+                  browser&rsquo;s local storage — it is not authentication and not shared with other
+                  visitors. Use <strong className="font-semibold">Copy CSS</strong> on a theme to
+                  publish it for everyone.
+                </>
+              )}
             </span>
           </p>
         </footer>
