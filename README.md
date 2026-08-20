@@ -92,12 +92,32 @@ change the values in `:root` — nothing else.
 ```css
 --background  --foreground  --card
 --primary  --primary-foreground  --primary-strong  --primary-soft
+--primary-rgb  --accent-rgb  --ink-rgb   /* bare channels, see below */
 --secondary  --muted  --border  --input  --ring
 --success  --warning  --danger
 --veg  --nonveg  --star        /* Indian diet marks + review stars */
 --ink  --ink-foreground        /* dark promotional panels */
 --radius
 ```
+
+The current brand is **`#6379c2`** (indigo).
+
+**Why the `*-rgb` channel tokens exist.** Decorative washes need the brand at
+partial alpha, which a hex token cannot express. Components write
+`rgb(var(--primary-rgb)/0.16)` instead of hardcoding a colour, so a re-skin
+touches `:root` and nothing else.
+
+**Two roles, deliberately.** `--primary` is the brand fill — buttons, badges,
+active chips, borders, focus rings, glows. `--primary-strong` is the deeper
+step used for **text and icons on light surfaces** and for button hover. Brand
+blues at this lightness clear WCAG AA as a fill (≥3:1) but not as small text
+(≥4.5:1), so `text-primary-strong` is the correct class for any primary-coloured
+label. Run `node /tmp/contrast.mjs`-style checks before changing either.
+
+**Two places CSS variables cannot reach**, and must be updated by hand:
+`src/app/opengraph-image.tsx` (satori renders outside the browser) and
+`src/app/icon.svg`. `HeroAmbient.tsx` reads `--accent-rgb` at runtime via
+`getComputedStyle`, so the canvas layer stays in sync automatically.
 
 ---
 

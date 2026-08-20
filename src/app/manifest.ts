@@ -11,8 +11,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: siteConfig.shortDescription,
     start_url: sitePath("/"),
     display: "standalone",
-    background_color: "#fffcf9",
-    theme_color: "#d63a28",
+    background_color: "#fcfdff",
+    theme_color: "#6379c2",
     lang: "en-IN",
     categories: ["food", "lifestyle", "business"],
     icons: [
