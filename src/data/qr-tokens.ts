@@ -4,7 +4,7 @@
  * Scanning a printed code lands the diner on `/q/[token]`. The token is opaque
  * — it never leaks the restaurant or table in the URL — and resolves here to a
  * restaurant, an outlet and (for table codes) the table itself, before the
- * route redirects straight to the live menu.
+ * route continues to the live menu.
  *
  * In production this lookup moves behind the QR service. The shape of
  * `QrResolution` is the contract, so only `resolveQrToken` changes.
@@ -49,6 +49,11 @@ const demoTokens: Record<string, QrResolution> = {
 
 export function resolveQrToken(token: string): QrResolution | undefined {
   return demoTokens[token.toLowerCase()];
+}
+
+/** Known tokens that can be emitted as static QR entry pages. */
+export function getAllQrTokens(): string[] {
+  return Object.keys(demoTokens);
 }
 
 /** Sample token used by the QR explainer on the homepage. */

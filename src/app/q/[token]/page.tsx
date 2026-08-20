@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { QrCode, ScanLine } from "lucide-react";
 
+import { QrRedirect } from "@/components/restaurant/QrRedirect";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { resolveQrToken } from "@/data/qr-tokens";
+import { getAllQrTokens, resolveQrToken } from "@/data/qr-tokens";
 import { getOutlet } from "@/data/restaurants";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { routes } from "@/lib/utils/routes";
@@ -24,14 +24,18 @@ export const metadata: Metadata = buildMetadata({
   noIndex: true,
 });
 
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getAllQrTokens().map((token) => ({ token }));
+}
+
 /**
  * QR resolver.
  *
- * Scan → resolve token → restaurant → outlet → table → menu, all on the
- * server, so the diner goes from camera to menu in one navigation with no
- * client-side round trip. An unknown token falls through to a helpful screen
- * rather than a bare 404 — a code that has been reprinted or rotated is a
- * routine situation at a busy table, not an error.
+ * Scan → resolve token → restaurant → outlet → table → menu. Known tokens are
+ * exported as entry pages and continue to the matching menu after hydration,
+ * which keeps the flow usable on a static host such as GitHub Pages.
  */
 export default async function QrResolverPage({ params }: QrPageProps) {
   const { token } = await params;
@@ -41,10 +45,12 @@ export default async function QrResolverPage({ params }: QrPageProps) {
     const found = getOutlet(resolution.restaurantSlug, resolution.outletSlug);
 
     if (found) {
-      redirect(
-        routes.outletMenu(resolution.restaurantSlug, resolution.outletSlug, {
-          table: resolution.tableNumber,
-        }),
+      return (
+        <QrRedirect
+          href={routes.outletMenu(resolution.restaurantSlug, resolution.outletSlug, {
+            table: resolution.tableNumber,
+          })}
+        />
       );
     }
   }

@@ -1,10 +1,12 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Phone, QrCode } from "lucide-react";
+import { Phone } from "lucide-react";
 
 import { DietMark } from "@/components/restaurant/DietBadges";
+import { TableContextBadge } from "@/components/restaurant/TableContextBadge";
 import { Container } from "@/components/ui/Container";
 import { getDishesByOutlet } from "@/data/dishes";
 import { BLUR_WARM } from "@/data/images";
@@ -16,8 +18,6 @@ import type { Dish, MenuCategory } from "@/types/dish";
 
 interface MenuPageProps {
   params: Promise<{ restaurantSlug: string; outletSlug: string }>;
-  /** `?table=` is populated by the QR resolver at `/q/[token]`. */
-  searchParams: Promise<{ table?: string }>;
 }
 
 export async function generateMetadata({ params }: MenuPageProps): Promise<Metadata> {
@@ -47,12 +47,11 @@ export async function generateMetadata({ params }: MenuPageProps): Promise<Metad
 /**
  * Outlet menu — the page a QR scan lands on.
  *
- * Server-rendered so it opens instantly on a phone at the table, with no
- * client-side data fetch between the scan and the food.
+ * Prerendered so it opens instantly on a phone at the table, with no
+ * client-side data fetch for the menu catalogue.
  */
-export default async function OutletMenuPage({ params, searchParams }: MenuPageProps) {
+export default async function OutletMenuPage({ params }: MenuPageProps) {
   const { restaurantSlug, outletSlug } = await params;
-  const { table } = await searchParams;
   const found = getOutlet(restaurantSlug, outletSlug);
 
   if (!found) notFound();
@@ -60,16 +59,12 @@ export default async function OutletMenuPage({ params, searchParams }: MenuPageP
 
   const dishes = getDishesByOutlet(restaurant.slug, outlet.slug);
   const categories = groupByCategory(dishes);
-  const tableNumber = table && /^\d{1,3}$/.test(table) ? Number(table) : null;
 
   return (
     <Container className="py-12 lg:py-16">
-      {tableNumber !== null ? (
-        <p className="mb-6 inline-flex items-center gap-2 rounded-pill border border-primary/20 bg-primary-soft px-4 py-2 text-sm font-semibold text-primary">
-          <QrCode className="size-4" aria-hidden="true" />
-          You are at Table {tableNumber} · {outlet.name}
-        </p>
-      ) : null}
+      <Suspense fallback={null}>
+        <TableContextBadge outletName={outlet.name} />
+      </Suspense>
 
       <h2 className="text-2xl font-extrabold tracking-[-0.02em] text-foreground">
         Menu at {outlet.name}

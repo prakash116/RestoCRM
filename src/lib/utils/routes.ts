@@ -92,8 +92,8 @@ export const routes = {
 
   /**
    * Single scannable entry point. The token encodes restaurant + outlet and,
-   * for table QRs, the table itself; the route handler resolves it server-side
-   * and forwards the diner straight to the menu.
+   * for table QRs, the table itself; the QR page resolves it and forwards the
+   * diner straight to the menu.
    */
   qr: (token: string) => `/q/${token}`,
 

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -5,8 +6,9 @@ import { notFound } from "next/navigation";
 import { BookingPanel } from "@/components/restaurant/BookingPanel";
 import { DietBadges } from "@/components/restaurant/DietBadges";
 import { OfferBadge } from "@/components/restaurant/OfferBadge";
+import { QueryBookingPanel } from "@/components/restaurant/QueryBookingPanel";
 import { Container } from "@/components/ui/Container";
-import { getDishById } from "@/data/dishes";
+import { getDishesByRestaurant } from "@/data/dishes";
 import { BLUR_WARM } from "@/data/images";
 import { getOutlet } from "@/data/restaurants";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -17,8 +19,6 @@ const DAY_LABELS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Fri
 
 interface OutletPageProps {
   params: Promise<{ restaurantSlug: string; outletSlug: string }>;
-  /** `dish` is set when the visitor tapped "Book" on a specific menu row. */
-  searchParams: Promise<{ book?: string; dish?: string }>;
 }
 
 export async function generateMetadata({ params }: OutletPageProps): Promise<Metadata> {
@@ -49,19 +49,12 @@ export async function generateMetadata({ params }: OutletPageProps): Promise<Met
   });
 }
 
-export default async function OutletPage({ params, searchParams }: OutletPageProps) {
+export default async function OutletPage({ params }: OutletPageProps) {
   const { restaurantSlug, outletSlug } = await params;
-  const { book, dish: dishId } = await searchParams;
   const found = getOutlet(restaurantSlug, outletSlug);
 
   if (!found) notFound();
   const { restaurant, outlet } = found;
-
-  // Only honour a dish that actually belongs to this restaurant — an id from
-  // another listing (or a hand-edited URL) must not surface here.
-  const requestedDish = dishId ? getDishById(dishId) : undefined;
-  const selectedDish =
-    requestedDish?.restaurantSlug === restaurant.slug ? requestedDish : undefined;
 
   return (
     <Container className="py-12 lg:py-16">
@@ -120,13 +113,15 @@ export default async function OutletPage({ params, searchParams }: OutletPagePro
 
         <aside>
           {outlet.acceptsBookings ? (
-            <BookingPanel
-              outletName={outlet.name}
-              phone={outlet.phone}
-              highlight={book === "1"}
-              dish={selectedDish}
-              clearDishHref={routes.bookTable(restaurant.slug, outlet.slug)}
-            />
+            <Suspense fallback={<BookingPanel outletName={outlet.name} phone={outlet.phone} />}>
+              <QueryBookingPanel
+                outletName={outlet.name}
+                phone={outlet.phone}
+                restaurantSlug={restaurant.slug}
+                outletSlug={outlet.slug}
+                dishes={getDishesByRestaurant(restaurant.slug)}
+              />
+            </Suspense>
           ) : (
             <div className="rounded-panel border border-dashed border-border bg-muted/40 p-6">
               <h2 className="text-lg font-bold text-foreground">Walk-ins only</h2>
