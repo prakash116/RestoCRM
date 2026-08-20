@@ -3,7 +3,9 @@ import { Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { MobileStickyCta } from "@/components/layout/MobileStickyCta";
+import { SiteChrome } from "@/components/layout/SiteChrome";
+import { ThemeApplier } from "@/components/theme/ThemeApplier";
+import { ThemeScript } from "@/components/theme/ThemeScript";
 import { JsonLd } from "@/lib/seo/JsonLd";
 import { siteConfig } from "@/lib/seo/site";
 import { buildGraph, organizationSchema, webSiteSchema } from "@/lib/seo/structured-data";
@@ -84,7 +86,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fffcf9",
+  themeColor: "#fcfdff",
   colorScheme: "light",
 };
 
@@ -93,15 +95,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const searchIndex = buildSearchIndex();
 
   return (
-    <html lang="en-IN" className={`${sans.variable} ${display.variable}`}>
+    // `suppressHydrationWarning`: the bootstrap script below writes inline
+    // custom properties onto <html> before React hydrates, and React must
+    // accept the DOM it finds rather than reverting to the server output.
+    <html
+      lang="en-IN"
+      className={`${sans.variable} ${display.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="min-h-dvh bg-background text-foreground antialiased">
         <JsonLd data={buildGraph(organizationSchema(), webSiteSchema())} />
 
         <Providers>
-          <Header searchIndex={searchIndex} />
-          <main id="main">{children}</main>
-          <Footer />
-          <MobileStickyCta />
+          <ThemeApplier />
+          <SiteChrome header={<Header searchIndex={searchIndex} />} footer={<Footer />}>
+            {children}
+          </SiteChrome>
         </Providers>
       </body>
     </html>
