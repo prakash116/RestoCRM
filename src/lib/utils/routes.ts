@@ -106,6 +106,7 @@ export const routes = {
   /* ---- Internal dashboard ----------------------------------------------- */
 
   dashboard: () => "/dashboard",
+  dashboardRestaurants: () => "/dashboard/restaurants",
   dashboardAnalytics: () => "/dashboard/analytics",
   dashboardRevenue: () => "/dashboard/revenue",
   dashboardLogin: () => "/dashboard/login",

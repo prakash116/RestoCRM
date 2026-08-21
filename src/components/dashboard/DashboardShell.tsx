@@ -9,6 +9,7 @@ import {
   LogOut,
   Palette,
   ShieldCheck,
+  Store,
 } from "lucide-react";
 
 import { LogoMark } from "@/components/ui/Logo";
@@ -19,6 +20,7 @@ import { routes } from "@/lib/utils/routes";
 
 const nav = [
   { label: "Overview", href: routes.dashboard(), icon: LayoutDashboard },
+  { label: "Restaurants", href: routes.dashboardRestaurants(), icon: Store },
   { label: "Analytics", href: routes.dashboardAnalytics(), icon: ChartNoAxesCombined },
   { label: "Themes", href: routes.dashboardThemes(), icon: Palette },
 ];
@@ -35,6 +37,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     pathname === routes.dashboard() ||
     pathname.startsWith(routes.dashboardAnalytics()) ||
     pathname.startsWith(routes.dashboardRevenue());
+  const restaurantPage = pathname.startsWith(routes.dashboardRestaurants());
 
   return (
     <div className="flex min-h-dvh flex-col bg-muted/40 lg:flex-row">
@@ -125,7 +128,12 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           <p className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
             <ShieldCheck className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
             <span>
-              {reportingPage ? (
+              {restaurantPage ? (
+                <>
+                  Restaurant management demo. Account actions and edits are illustrative UI data
+                  saved only in this browser and are not connected to a live restaurant database.
+                </>
+              ) : reportingPage ? (
                 <>
                   Reporting demo. Analytics and revenue figures are illustrative UI data and are
                   not connected to a billing, gateway, membership or customer database.
