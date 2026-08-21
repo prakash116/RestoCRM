@@ -280,7 +280,7 @@ function RestaurantActions({
 }) {
   const blocked = restaurant.status === "blocked";
   return (
-    <div className="flex items-center gap-1.5" role="group" aria-label={`Actions for ${restaurant.name}`}>
+    <div className="flex items-center gap-1" role="group" aria-label={`Actions for ${restaurant.name}`}>
       <IconAction label={`View ${restaurant.name}`} onClick={onView}>
         <Eye className="size-4" aria-hidden="true" />
       </IconAction>
@@ -321,7 +321,7 @@ function StatusControl({
     : `${active ? "Deactivate" : "Activate"} ${restaurant.name}`;
 
   return (
-    <div>
+    <div className="min-w-[6.75rem]">
       <span
         className={cn(
           "inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-[0.625rem] font-bold",
@@ -331,7 +331,7 @@ function StatusControl({
         <span className={cn("size-1.5 rounded-full", meta.dot)} aria-hidden="true" />
         {meta.label}
       </span>
-      <div className="mt-2 flex items-center gap-2">
+      <div className="mt-2 flex h-6 items-center gap-2">
         <button
           type="button"
           role="switch"
@@ -341,19 +341,19 @@ function StatusControl({
           disabled={disabled}
           onClick={onToggle}
           className={cn(
-            "relative h-6 w-11 rounded-pill border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-45",
+            "relative h-6 w-11 shrink-0 rounded-pill border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-45",
             active ? "border-success bg-success" : "border-border bg-muted",
           )}
         >
           <span
             aria-hidden="true"
             className={cn(
-              "absolute top-0.5 size-4.5 rounded-full bg-card shadow-soft transition-transform",
-              active ? "translate-x-[1.15rem]" : "translate-x-0.5",
+              "absolute top-0.5 left-0.5 size-4.5 rounded-full bg-card shadow-soft transition-transform",
+              active ? "translate-x-[1.375rem]" : "translate-x-0",
             )}
           />
         </button>
-        <span className="text-[0.6875rem] font-semibold text-muted-foreground">
+        <span className="w-5 text-left text-[0.6875rem] font-semibold text-muted-foreground">
           {active ? "On" : "Off"}
         </span>
       </div>
@@ -459,7 +459,7 @@ function SelectFilter({
   options: { value: string; label: string }[];
 }) {
   return (
-    <label htmlFor={id} className="min-w-[9.5rem] flex-1 sm:flex-none">
+    <label htmlFor={id} className="block min-w-0 w-full">
       <span className="mb-1.5 block text-[0.625rem] font-bold tracking-[0.12em] text-muted-foreground uppercase">
         {label}
       </span>
@@ -1150,8 +1150,8 @@ export function RestaurantManagement() {
       </RevealGroup>
 
       <Reveal as="section" className="mt-5 rounded-panel border border-border bg-card p-4 shadow-card sm:p-5">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-end">
-          <label className="min-w-0 flex-1 xl:max-w-sm">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 xl:items-end 2xl:grid-cols-[minmax(15rem,1.5fr)_minmax(8.5rem,0.9fr)_minmax(9.5rem,1fr)_minmax(7.5rem,0.8fr)_minmax(9rem,1fr)_auto]">
+          <label className="min-w-0 sm:col-span-2 xl:col-span-1">
             <span className="mb-1.5 block text-[0.625rem] font-bold tracking-[0.12em] text-muted-foreground uppercase">Search registry</span>
             <span className="relative block">
               <Search className="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
@@ -1165,39 +1165,37 @@ export function RestaurantManagement() {
             </span>
           </label>
 
-          <div className="flex flex-1 flex-wrap gap-3">
-            <SelectFilter id="restaurant-status" label="Account" value={status} onChange={(value) => setStatus(value as StatusFilter)} options={[
-              { value: "all", label: "All statuses" },
-              { value: "active", label: "Active" },
-              { value: "inactive", label: "Inactive" },
-              { value: "blocked", label: "Blocked" },
-              { value: "pending", label: "Pending onboarding" },
-            ]} />
-            <SelectFilter id="restaurant-membership" label="Membership" value={membership} onChange={(value) => setMembership(value as MembershipFilter)} options={[
-              { value: "all", label: "All memberships" },
-              { value: "active", label: "Active" },
-              { value: "expiring", label: "Expiring" },
-              { value: "expired", label: "Expired" },
-              { value: "not_started", label: "Not started" },
-            ]} />
-            <SelectFilter id="restaurant-city" label="City" value={city} onChange={(value) => setCity(value as CityFilter)} options={[
-              { value: "all", label: "All cities" },
-              { value: "Delhi", label: "Delhi" },
-              { value: "Gurugram", label: "Gurugram" },
-              { value: "Noida", label: "Noida" },
-            ]} />
-            <SelectFilter id="restaurant-sort" label="Sort" value={sort} onChange={(value) => setSort(value as SortOption)} options={[
-              { value: "recent", label: "Recent activity" },
-              { value: "name", label: "Name A–Z" },
-              { value: "onboarding", label: "Onboarding progress" },
-            ]} />
-          </div>
+          <SelectFilter id="restaurant-status" label="Account" value={status} onChange={(value) => setStatus(value as StatusFilter)} options={[
+            { value: "all", label: "All statuses" },
+            { value: "active", label: "Active" },
+            { value: "inactive", label: "Inactive" },
+            { value: "blocked", label: "Blocked" },
+            { value: "pending", label: "Pending onboarding" },
+          ]} />
+          <SelectFilter id="restaurant-membership" label="Membership" value={membership} onChange={(value) => setMembership(value as MembershipFilter)} options={[
+            { value: "all", label: "All memberships" },
+            { value: "active", label: "Active" },
+            { value: "expiring", label: "Expiring" },
+            { value: "expired", label: "Expired" },
+            { value: "not_started", label: "Not started" },
+          ]} />
+          <SelectFilter id="restaurant-city" label="City" value={city} onChange={(value) => setCity(value as CityFilter)} options={[
+            { value: "all", label: "All cities" },
+            { value: "Delhi", label: "Delhi" },
+            { value: "Gurugram", label: "Gurugram" },
+            { value: "Noida", label: "Noida" },
+          ]} />
+          <SelectFilter id="restaurant-sort" label="Sort" value={sort} onChange={(value) => setSort(value as SortOption)} options={[
+            { value: "recent", label: "Recent activity" },
+            { value: "name", label: "Name A–Z" },
+            { value: "onboarding", label: "Onboarding progress" },
+          ]} />
 
           <button
             type="button"
             onClick={resetFilters}
             disabled={!filtersActive}
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-pill border border-border px-4 text-sm font-bold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary-strong disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-pill border border-border px-4 text-sm font-bold text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary-strong disabled:cursor-not-allowed disabled:opacity-40 sm:col-span-2 sm:w-auto sm:justify-self-end xl:col-span-1 xl:w-full xl:justify-self-stretch"
           >
             <RotateCcw className="size-4" aria-hidden="true" /> Reset
           </button>
@@ -1219,28 +1217,28 @@ export function RestaurantManagement() {
       </Reveal>
 
       <Reveal as="section" className="mt-5 overflow-hidden rounded-panel border border-border bg-card shadow-card">
-        <div className="flex flex-col gap-3 border-b border-border px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-6">
+        <div className="flex flex-col gap-3 border-b border-border px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div>
             <p className="text-[0.6875rem] font-bold tracking-[0.13em] text-primary-strong uppercase">Restaurant directory</p>
             <h2 ref={registryHeadingRef} tabIndex={-1} className="mt-1.5 text-xl font-extrabold text-foreground focus:outline-none">Manage every account</h2>
             <p className="mt-1 text-xs text-muted-foreground">Changes stay in this browser and update the overview instantly.</p>
           </div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+          <div className="inline-flex w-fit items-center gap-2 rounded-pill bg-success-soft px-3 py-1.5 text-xs font-bold text-success">
             <span className="size-2 rounded-full bg-success" aria-hidden="true" />
-            {metrics.active} accounts serving
+            {metrics.active} restaurants active
           </div>
         </div>
 
         {filteredRecords.length ? (
           <>
-            <div className="divide-y divide-border md:hidden">
+            <div className="grid divide-y divide-border xl:grid-cols-2 xl:gap-3 xl:divide-y-0 xl:p-3 2xl:hidden">
               {filteredRecords.map((restaurant) => (
-                <article key={restaurant.id} className="p-5">
+                <article key={restaurant.id} className="p-5 xl:rounded-card xl:border xl:border-border">
                   <RestaurantIdentity restaurant={restaurant} />
-                  <div className="mt-4 grid grid-cols-2 gap-4 rounded-card bg-muted/55 p-4">
+                  <div className="mt-4 grid gap-4 rounded-card bg-muted/55 p-4 sm:grid-cols-2">
                     <StatusControl restaurant={restaurant} onToggle={() => toggleActive(restaurant)} />
                     <MembershipCell restaurant={restaurant} />
-                    <div className="col-span-2 border-t border-border pt-3"><OnboardingCell restaurant={restaurant} /></div>
+                    <div className="border-t border-border pt-3 sm:col-span-2"><OnboardingCell restaurant={restaurant} /></div>
                   </div>
                   <div className="mt-4"><PerformanceCell restaurant={restaurant} /></div>
                   <div className="mt-4 overflow-x-auto pb-1">
@@ -1260,10 +1258,19 @@ export function RestaurantManagement() {
               role="region"
               aria-label="Restaurant management table. Scroll horizontally to view every column."
               tabIndex={0}
-              className="hidden overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary md:block"
+              className="hidden overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary 2xl:block"
             >
-              <table className="w-full min-w-[80rem] border-collapse text-left">
+              <table className="w-full min-w-[76rem] table-fixed border-collapse text-left">
                 <caption className="sr-only">Restaurant accounts with owner, status, membership, onboarding, performance and management actions</caption>
+                <colgroup>
+                  <col className="w-[16%]" />
+                  <col className="w-[13%]" />
+                  <col className="w-[13%]" />
+                  <col className="w-[12%]" />
+                  <col className="w-[13%]" />
+                  <col className="w-[15%]" />
+                  <col className="w-[18%]" />
+                </colgroup>
                 <thead>
                   <tr className="bg-muted/55 text-[0.625rem] font-bold tracking-[0.11em] text-muted-foreground uppercase">
                     <th scope="col" className="px-5 py-3.5 sm:pl-6">Restaurant</th>
@@ -1272,7 +1279,7 @@ export function RestaurantManagement() {
                     <th scope="col" className="px-3 py-3.5">Membership</th>
                     <th scope="col" className="px-3 py-3.5">Onboarding</th>
                     <th scope="col" className="px-3 py-3.5">Performance</th>
-                    <th scope="col" className="px-3 py-3.5 pr-5 sm:pr-6">Actions</th>
+                    <th scope="col" className="sticky right-0 z-10 border-l border-border/60 bg-muted px-3 py-3.5 pr-5 shadow-[-12px_0_20px_-22px_rgb(0_0_0/0.5)] sm:pr-6">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1280,18 +1287,18 @@ export function RestaurantManagement() {
                     <motion.tr
                       layout="position"
                       key={restaurant.id}
-                      className="border-t border-border/80 transition-colors hover:bg-primary-soft/35"
+                      className="group border-t border-border/80 transition-colors hover:bg-primary-soft/35"
                     >
-                      <th scope="row" className="px-5 py-4 font-normal sm:pl-6"><RestaurantIdentity restaurant={restaurant} /></th>
-                      <td className="px-3 py-4">
+                      <th scope="row" className="px-5 py-4 align-middle font-normal sm:pl-6"><RestaurantIdentity restaurant={restaurant} /></th>
+                      <td className="px-3 py-4 align-middle">
                         <p className="text-sm font-bold text-foreground">{restaurant.ownerName}</p>
                         <p className="mt-1 max-w-48 truncate text-[0.6875rem] text-muted-foreground">{restaurant.email}</p>
                       </td>
-                      <td className="px-3 py-4"><StatusControl restaurant={restaurant} onToggle={() => toggleActive(restaurant)} /></td>
-                      <td className="px-3 py-4"><MembershipCell restaurant={restaurant} /></td>
-                      <td className="px-3 py-4"><OnboardingCell restaurant={restaurant} /></td>
-                      <td className="px-3 py-4"><PerformanceCell restaurant={restaurant} /></td>
-                      <td className="px-3 py-4 pr-5 sm:pr-6">
+                      <td className="px-3 py-4 align-middle"><StatusControl restaurant={restaurant} onToggle={() => toggleActive(restaurant)} /></td>
+                      <td className="px-3 py-4 align-middle"><MembershipCell restaurant={restaurant} /></td>
+                      <td className="px-3 py-4 align-middle"><OnboardingCell restaurant={restaurant} /></td>
+                      <td className="px-3 py-4 align-middle"><PerformanceCell restaurant={restaurant} /></td>
+                      <td className="sticky right-0 z-[1] border-l border-border/60 bg-card px-3 py-4 pr-5 align-middle shadow-[-12px_0_20px_-22px_rgb(0_0_0/0.5)] transition-colors group-hover:bg-primary-soft/35 sm:pr-6">
                         <RestaurantActions
                           restaurant={restaurant}
                           onView={() => openDrawer("view", restaurant.id)}
