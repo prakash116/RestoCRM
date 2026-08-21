@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: ThemePageProps): Promise<Meta
 
   return buildMetadata({
     title: theme ? `${theme.name} theme` : "Theme editor",
-    description: "Edit the platform colour palette.",
+    description: "Edit the Light and Dark variants of a platform colour palette.",
     path: routes.dashboardTheme(themeSlug),
     noIndex: true,
   });

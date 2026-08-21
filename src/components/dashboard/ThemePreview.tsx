@@ -1,9 +1,10 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { MapPin, Star } from "lucide-react";
+import { MapPin, Moon, Star, Sun } from "lucide-react";
 
 import { applyThemeColors } from "@/lib/theme/apply";
+import type { ThemeMode } from "@/lib/theme/apply";
 import type { ThemeColors } from "@/lib/theme/tokens";
 
 /**
@@ -13,19 +14,31 @@ import type { ThemeColors } from "@/lib/theme/tokens";
  * a theme can be previewed without taking over the dashboard you are editing
  * it in. Custom properties inherit, so every child picks them up.
  */
-export function ThemePreview({ colors }: { colors: ThemeColors }) {
+export function ThemePreview({ colors, mode }: { colors: ThemeColors; mode: ThemeMode }) {
   const scopeRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (scopeRef.current) applyThemeColors(colors, scopeRef.current);
-  }, [colors]);
+    if (scopeRef.current) {
+      scopeRef.current.dataset.themeMode = mode;
+      scopeRef.current.style.colorScheme = mode;
+      applyThemeColors(colors, scopeRef.current);
+    }
+  }, [colors, mode]);
 
   return (
     <section aria-labelledby="preview-heading" className="rounded-card border border-border bg-card">
-      <div className="border-b border-border px-4 py-3">
+      <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
         <h2 id="preview-heading" className="text-sm font-bold text-foreground">
-          Preview
+          Live interface preview
         </h2>
+        <span className="inline-flex items-center gap-1.5 rounded-pill bg-muted px-2.5 py-1 text-[0.6875rem] font-bold text-muted-foreground capitalize">
+          {mode === "dark" ? (
+            <Moon className="size-3" aria-hidden="true" />
+          ) : (
+            <Sun className="size-3" aria-hidden="true" />
+          )}
+          {mode}
+        </span>
       </div>
 
       <div ref={scopeRef} className="space-y-4 bg-background p-4">
@@ -41,7 +54,7 @@ export function ThemePreview({ colors }: { colors: ThemeColors }) {
           <div className="p-3.5">
             <div className="flex items-start justify-between gap-2">
               <p className="text-[0.9375rem] font-bold text-foreground">Copper Tandoor</p>
-              <span className="inline-flex items-center gap-1 rounded-control bg-success px-1.5 py-0.5 text-xs font-bold text-white">
+              <span className="inline-flex items-center gap-1 rounded-control bg-success px-1.5 py-0.5 text-xs font-bold text-background">
                 <Star className="size-3 fill-current" aria-hidden="true" />
                 4.7
               </span>

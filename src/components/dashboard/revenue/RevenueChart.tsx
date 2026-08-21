@@ -135,7 +135,7 @@ export function RevenueChart({
           </p>
         </div>
 
-        <div className="grid w-full grid-cols-3 rounded-pill border border-white/10 bg-white/5 p-1 sm:w-fit" role="group" aria-label="Revenue metric">
+        <div className="grid w-full grid-cols-3 rounded-pill border border-ink-foreground/10 bg-ink-foreground/5 p-1 sm:w-fit" role="group" aria-label="Revenue metric">
           {metrics.map((item) => (
             <button
               key={item.id}
@@ -145,7 +145,7 @@ export function RevenueChart({
               className={cn(
                 "rounded-pill px-2 py-2 text-xs font-semibold whitespace-nowrap transition-colors sm:px-4",
                 metric === item.id
-                  ? "bg-white text-ink shadow-soft"
+                  ? "bg-ink-foreground text-ink shadow-soft"
                   : "text-ink-muted hover:text-ink-foreground",
               )}
             >
@@ -168,7 +168,7 @@ export function RevenueChart({
         <p
           className={cn(
             "mb-1 inline-flex items-center gap-1 rounded-pill px-2.5 py-1 text-xs font-bold tabular-nums",
-            favourable ? "bg-success/15 text-success-soft" : "bg-danger/15 text-danger-soft",
+            favourable ? "bg-success/15 text-success-on-ink" : "bg-danger/15 text-danger-on-ink",
           )}
         >
           {delta >= 0 ? <ArrowUpRight className="size-3.5" aria-hidden="true" /> : <ArrowDownRight className="size-3.5" aria-hidden="true" />}
@@ -205,8 +205,8 @@ export function RevenueChart({
             const y = PADDING.top + (index / 3) * (HEIGHT - PADDING.top - PADDING.bottom);
             return (
               <g key={value}>
-                <line x1={PADDING.left} x2={WIDTH - PADDING.right} y1={y} y2={y} stroke="rgba(255,255,255,0.1)" strokeDasharray="3 8" />
-                <text className="max-sm:hidden" x={WIDTH - PADDING.right + 12} y={y + 4} fill="rgba(238,240,247,0.5)" fontSize="11">{formatMoney(value)}</text>
+                <line x1={PADDING.left} x2={WIDTH - PADDING.right} y1={y} y2={y} stroke="var(--ink-foreground)" strokeOpacity="0.1" strokeDasharray="3 8" />
+                <text className="max-sm:hidden" x={WIDTH - PADDING.right + 12} y={y + 4} fill="var(--ink-foreground)" fillOpacity="0.5" fontSize="11">{formatMoney(value)}</text>
               </g>
             );
           })}
@@ -226,7 +226,8 @@ export function RevenueChart({
                 width={barWidth}
                 height={barHeight}
                 rx="2"
-                fill="rgba(255,255,255,0.055)"
+                fill="var(--ink-foreground)"
+                fillOpacity="0.055"
               />
             );
           })}
@@ -235,7 +236,8 @@ export function RevenueChart({
             key={`previous-${metric}-${periodLabel}`}
             d={linePath(chart.previous)}
             fill="none"
-            stroke="rgba(255,255,255,0.25)"
+            stroke="var(--ink-foreground)"
+            strokeOpacity="0.25"
             strokeWidth="1.5"
             strokeDasharray="6 8"
             initial={{ opacity: 0 }}
@@ -265,8 +267,8 @@ export function RevenueChart({
 
           {activePoint ? (
             <g aria-hidden="true">
-              <line x1={activePoint.x} x2={activePoint.x} y1={PADDING.top} y2={HEIGHT - PADDING.bottom} stroke="rgba(255,255,255,0.22)" strokeDasharray="3 5" />
-              <circle cx={activePoint.x} cy={activePoint.y} r="8" fill="rgba(147,167,224,0.18)" />
+              <line x1={activePoint.x} x2={activePoint.x} y1={PADDING.top} y2={HEIGHT - PADDING.bottom} stroke="var(--ink-foreground)" strokeOpacity="0.22" strokeDasharray="3 5" />
+              <circle cx={activePoint.x} cy={activePoint.y} r="8" fill="var(--accent)" fillOpacity="0.18" />
               <circle cx={activePoint.x} cy={activePoint.y} r="4" fill="var(--accent)" />
             </g>
           ) : null}
@@ -282,7 +284,8 @@ export function RevenueChart({
                 x={plotPoint.x}
                 y={HEIGHT - 9}
                 textAnchor={index === 0 ? "start" : index === data.length - 1 ? "end" : "middle"}
-                fill="rgba(238,240,247,0.48)"
+                fill="var(--ink-foreground)"
+                fillOpacity="0.48"
                 fontSize="11"
               >
                 {point.label}
@@ -295,7 +298,7 @@ export function RevenueChart({
           <div
             aria-hidden="true"
             className={cn(
-              "pointer-events-none absolute z-10 hidden min-w-[10.5rem] rounded-control border border-white/10 bg-ink/95 px-3 py-2.5 shadow-lift backdrop-blur-sm sm:block",
+              "pointer-events-none absolute z-10 hidden min-w-[10.5rem] rounded-control border border-ink-foreground/10 bg-ink/95 px-3 py-2.5 shadow-lift backdrop-blur-sm sm:block",
               activePoint.x / WIDTH > 0.72 ? "-translate-x-full" : "translate-x-3",
             )}
             style={{ left: `${(activePoint.x / WIDTH) * 100}%`, top: `${Math.max((activePoint.y / HEIGHT) * 100 - 14, 4)}%` }}
@@ -309,8 +312,8 @@ export function RevenueChart({
 
       <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.6875rem] font-semibold text-ink-muted">
         <span className="inline-flex items-center gap-2"><span className="h-0.5 w-5 rounded-full bg-[var(--accent)]" aria-hidden="true" />Current period</span>
-        <span className="inline-flex items-center gap-2"><span className="w-5 border-t border-dashed border-white/35" aria-hidden="true" />Previous period</span>
-        <span className="inline-flex items-center gap-2"><span className="size-2 rounded-sm bg-white/10" aria-hidden="true" />Order volume</span>
+        <span className="inline-flex items-center gap-2"><span className="w-5 border-t border-dashed border-ink-foreground/35" aria-hidden="true" />Previous period</span>
+        <span className="inline-flex items-center gap-2"><span className="size-2 rounded-sm bg-ink-foreground/10" aria-hidden="true" />Order volume</span>
       </div>
 
       <table className="sr-only">

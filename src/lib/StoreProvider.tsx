@@ -9,7 +9,11 @@ import { hydrateSession } from "./features/auth/authSlice";
 import { hydrateFavorites } from "./features/favorites/favoritesSlice";
 import { hydrateTheme } from "./features/theme/themeSlice";
 import { makeStore, type AppStore, type RootState } from "./store";
-import { THEME_STORAGE_KEY, type StoredThemeState } from "./theme/apply";
+import {
+  THEME_STORAGE_KEY,
+  parsePersistedThemeState,
+  type StoredThemeState,
+} from "./theme/apply";
 
 const FAVORITES_KEY = "dineboard.favorites.v1";
 const SESSION_KEY = "dineboard.session.v1";
@@ -51,7 +55,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       ),
     );
 
-    store.dispatch(hydrateTheme(readJson<StoredThemeState>(THEME_STORAGE_KEY)));
+    store.dispatch(hydrateTheme(parsePersistedThemeState(readJson<unknown>(THEME_STORAGE_KEY))));
     store.dispatch(hydrateSession(readJson<DashboardSession>(SESSION_KEY)));
 
     /**
@@ -72,10 +76,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
       if (
         next.theme.themes !== previous.theme.themes ||
-        next.theme.activeThemeId !== previous.theme.activeThemeId
+        next.theme.activeThemeId !== previous.theme.activeThemeId ||
+        next.theme.activeMode !== previous.theme.activeMode
       ) {
         writeJson(THEME_STORAGE_KEY, {
           activeThemeId: next.theme.activeThemeId,
+          activeMode: next.theme.activeMode,
           themes: next.theme.themes,
         } satisfies StoredThemeState);
       }

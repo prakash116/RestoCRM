@@ -90,7 +90,7 @@ export function ColorField({
 
         {invalid ? (
           <p role="alert" className="mt-1.5 text-xs font-medium text-danger">
-            Enter a hex colour such as #6379c2.
+            Enter a hex colour such as #5c72bb.
           </p>
         ) : null}
       </div>

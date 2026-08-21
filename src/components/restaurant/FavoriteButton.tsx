@@ -36,8 +36,8 @@ export function FavoriteButton({
         isFavorite ? `Remove ${restaurantName} from favourites` : `Save ${restaurantName} to favourites`
       }
       className={cn(
-        "grid size-9 place-items-center rounded-full border border-white/40 bg-white/85 backdrop-blur-sm",
-        "shadow-soft transition-colors duration-200 hover:bg-white",
+        "grid size-9 place-items-center rounded-full border border-border bg-card/85 backdrop-blur-sm",
+        "shadow-soft transition-colors duration-200 hover:bg-card",
         className,
       )}
     >
@@ -46,7 +46,7 @@ export function FavoriteButton({
           "size-[1.05rem] transition-colors duration-200",
           // Fill and stroke must be the same step, or the saved heart reads as
           // a two-tone icon.
-          isFavorite ? "fill-primary text-primary" : "text-ink/70",
+          isFavorite ? "fill-primary text-primary" : "text-card-foreground/70",
         )}
         aria-hidden="true"
       />

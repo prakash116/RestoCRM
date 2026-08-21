@@ -7,14 +7,18 @@ import {
   ExternalLink,
   LayoutDashboard,
   LogOut,
+  Moon,
   Palette,
   ShieldCheck,
   Store,
+  Sun,
 } from "lucide-react";
 
 import { LogoMark } from "@/components/ui/Logo";
 import { signOut } from "@/lib/features/auth/authSlice";
+import { activateTheme, setThemeMode } from "@/lib/features/theme/themeSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { getThemeColors } from "@/lib/theme/apply";
 import { cn } from "@/lib/utils/cn";
 import { routes } from "@/lib/utils/routes";
 
@@ -30,9 +34,8 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
   const session = useAppSelector((state) => state.auth.session);
-  const activeTheme = useAppSelector((state) =>
-    state.theme.themes.find((theme) => theme.id === state.theme.activeThemeId),
-  );
+  const { themes, activeThemeId, activeMode } = useAppSelector((state) => state.theme);
+  const activeTheme = themes.find((theme) => theme.id === activeThemeId);
   const reportingPage =
     pathname === routes.dashboard() ||
     pathname.startsWith(routes.dashboardAnalytics()) ||
@@ -41,7 +44,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-dvh flex-col bg-muted/40 lg:flex-row">
-      <aside className="shrink-0 border-b border-border bg-card lg:w-64 lg:border-r lg:border-b-0">
+      <aside className="shrink-0 border-b border-border bg-card lg:sticky lg:top-0 lg:flex lg:h-dvh lg:w-64 lg:flex-col lg:overflow-y-auto lg:border-r lg:border-b-0">
         <div className="flex items-center gap-2.5 px-5 py-4 lg:py-5">
           <LogoMark className="size-8" />
           <span className="text-[1.05rem] leading-none font-extrabold tracking-[-0.03em] text-foreground">
@@ -84,14 +87,68 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           </ul>
         </nav>
 
-        <div className="hidden border-t border-border px-5 py-4 lg:block">
+        <div className="hidden border-t border-border px-5 py-4 lg:mt-auto lg:block">
           <p className="text-[0.6875rem] font-bold tracking-[0.14em] text-muted-foreground uppercase">
-            Live theme
+            Quick appearance
           </p>
-          <p className="mt-1.5 text-sm font-bold text-foreground">{activeTheme?.name ?? "—"}</p>
+
+          <div role="group" aria-label="Quick appearance mode" className="mt-2 grid grid-cols-2 rounded-pill bg-muted p-1">
+            {(["light", "dark"] as const).map((mode) => {
+              const Icon = mode === "light" ? Sun : Moon;
+              return (
+                <button
+                  key={mode}
+                  type="button"
+                  aria-pressed={activeMode === mode}
+                  onClick={() => dispatch(setThemeMode(mode))}
+                  className={cn(
+                    "inline-flex h-8 items-center justify-center gap-1.5 rounded-pill text-[0.6875rem] font-bold capitalize transition-colors",
+                    activeMode === mode ? "bg-card text-foreground shadow-soft" : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  <Icon className="size-3.5" aria-hidden="true" />
+                  {mode}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="mt-3 flex items-center gap-2" aria-label="Quick colour combinations">
+            {themes.slice(0, 4).map((theme) => {
+              const selected = theme.id === activeThemeId;
+              const palette = getThemeColors(theme, activeMode);
+              return (
+                <button
+                  key={theme.id}
+                  type="button"
+                  onClick={() => dispatch(activateTheme(theme.id))}
+                  aria-label={`Use ${theme.name} ${activeMode} theme`}
+                  aria-pressed={selected}
+                  title={theme.name}
+                  className={cn(
+                    "grid size-8 place-items-center rounded-full border transition-transform hover:scale-105",
+                    selected ? "border-primary ring-2 ring-primary/25" : "border-border",
+                  )}
+                >
+                  <span className="size-5 rounded-full" style={{ backgroundColor: palette.primary }} aria-hidden="true" />
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="mt-2.5 text-sm font-bold text-foreground capitalize">
+            {activeTheme?.name ?? "—"} · {activeMode}
+          </p>
+          <Link
+            href={routes.dashboardThemes()}
+            className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-primary-strong hover:underline"
+          >
+            Open Theme Studio
+            <Palette className="size-3" aria-hidden="true" />
+          </Link>
           <Link
             href={routes.home()}
-            className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary-strong hover:underline"
+            className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary-strong hover:underline"
           >
             View public site
             <ExternalLink className="size-3" aria-hidden="true" />

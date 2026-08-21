@@ -24,9 +24,9 @@ export function RatingBadge({
   const tone = ratingTone(value);
 
   const tones = {
-    high: "bg-success text-white",
+    high: "bg-success text-background",
     mid: "bg-star text-ink",
-    low: "bg-muted-foreground text-white",
+    low: "bg-muted-foreground text-background",
   } as const;
 
   return (

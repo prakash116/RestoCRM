@@ -7,7 +7,7 @@ import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata({
   title: "Themes",
-  description: "Manage platform colour themes.",
+  description: "Create and manage paired Light and Dark brand themes.",
   path: "/dashboard/themes",
   noIndex: true,
 });

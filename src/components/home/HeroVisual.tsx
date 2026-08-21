@@ -56,10 +56,10 @@ export function HeroVisual() {
               <CalendarCheck className="size-5 text-success" aria-hidden="true" />
             </span>
             <span className="min-w-0">
-              <span className="block text-[0.8125rem] leading-tight font-bold text-ink">
+              <span className="block text-[0.8125rem] leading-tight font-bold text-card-foreground">
                 Table confirmed
               </span>
-              <span className="block truncate text-xs text-ink/60">
+              <span className="block truncate text-xs text-muted-foreground">
                 Copper Tandoor · 8:30 PM
               </span>
             </span>
@@ -85,13 +85,13 @@ export function HeroVisual() {
               />
             </span>
             <span className="min-w-0">
-              <span className="block truncate text-[0.8125rem] leading-tight font-bold text-ink">
+              <span className="block truncate text-[0.8125rem] leading-tight font-bold text-card-foreground">
                 Butter Chicken
               </span>
-              <span className="mt-0.5 flex items-center gap-1 text-xs font-semibold text-ink/70">
+              <span className="mt-0.5 flex items-center gap-1 text-xs font-semibold text-card-foreground/70">
                 <Star className="size-3 fill-star text-star" aria-hidden="true" />
                 4.8
-                <span className="font-normal text-ink/50">· #1 trending</span>
+                <span className="font-normal text-muted-foreground">· #1 trending</span>
               </span>
             </span>
           </div>
@@ -109,10 +109,10 @@ export function HeroVisual() {
               <QrCode className="size-5 text-primary-strong" aria-hidden="true" />
             </span>
             <span className="min-w-0">
-              <span className="block text-[0.8125rem] leading-tight font-bold text-ink">
+              <span className="block text-[0.8125rem] leading-tight font-bold text-card-foreground">
                 Scan to order
               </span>
-              <span className="block truncate text-xs text-ink/60">Table 12 · live menu</span>
+              <span className="block truncate text-xs text-muted-foreground">Table 12 · live menu</span>
             </span>
           </div>
         </FloatingCard>

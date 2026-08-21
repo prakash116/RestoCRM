@@ -43,14 +43,14 @@ export function RestaurantHero({ restaurant }: { restaurant: Restaurant }) {
             <span
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-pill px-3 py-1.5 text-[0.6875rem] font-bold tracking-wide uppercase",
-                restaurant.isOpen ? "bg-success text-white" : "bg-white/15 text-ink-foreground",
+                restaurant.isOpen ? "bg-success text-background" : "bg-white/15 text-ink-foreground",
               )}
             >
               <span
                 aria-hidden="true"
                 className={cn(
                   "size-1.5 rounded-full",
-                  restaurant.isOpen ? "bg-white" : "bg-ink-muted",
+                  restaurant.isOpen ? "bg-background" : "bg-ink-muted",
                 )}
               />
               {restaurant.isOpen ? "Open now" : "Closed"}
@@ -76,7 +76,7 @@ export function RestaurantHero({ restaurant }: { restaurant: Restaurant }) {
 
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
             <span className="inline-flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 rounded-control bg-success px-2 py-1 text-[0.8125rem] font-bold text-white tabular-nums">
+              <span className="inline-flex items-center gap-1 rounded-control bg-success px-2 py-1 text-[0.8125rem] font-bold text-background tabular-nums">
                 <span aria-hidden="true">★</span>
                 {formatRating(restaurant.rating.value)}
               </span>

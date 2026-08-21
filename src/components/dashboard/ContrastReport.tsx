@@ -41,7 +41,11 @@ export function ContrastReport({ colors }: { colors: ThemeColors }) {
         </span>
       </div>
 
-      <ul className="divide-y divide-border">
+      <ul
+        tabIndex={0}
+        aria-label="Contrast check results"
+        className="max-h-[28rem] divide-y divide-border overflow-y-auto"
+      >
         {ordered.map((result) => (
           <li key={result.id} className="flex items-start gap-3 px-4 py-3">
             <span

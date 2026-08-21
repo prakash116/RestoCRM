@@ -63,7 +63,7 @@ export function RestaurantCard({
             className={cn(
               "inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-[0.6875rem] font-bold tracking-wide uppercase backdrop-blur-sm",
               restaurant.isOpen
-                ? "bg-white/90 text-success"
+                ? "bg-success-soft/90 text-success"
                 : "bg-ink/80 text-ink-foreground",
             )}
           >

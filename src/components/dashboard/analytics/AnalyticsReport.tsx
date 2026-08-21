@@ -364,7 +364,7 @@ export function AnalyticsReport() {
               </div>
               <div>
                 <p className="text-[0.625rem] font-bold tracking-wider text-ink-muted uppercase">Signal</p>
-                <p className="mt-1 text-sm font-bold text-[#7ee2a8]">Healthy</p>
+                <p className="mt-1 text-sm font-bold text-success-on-ink">Healthy</p>
               </div>
             </div>
           </div>

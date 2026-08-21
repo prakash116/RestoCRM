@@ -173,7 +173,7 @@ export function RestaurantPerformanceChart({
           <p className="mt-1 text-sm text-ink-muted">{periodLabel} · compared with the prior period</p>
         </div>
 
-        <div className="flex w-fit max-w-full overflow-x-auto rounded-pill border border-white/10 bg-white/5 p-1" role="group" aria-label="Chart metric">
+        <div className="flex w-fit max-w-full overflow-x-auto rounded-pill border border-ink-foreground/10 bg-ink-foreground/5 p-1" role="group" aria-label="Chart metric">
           {metricOptions.map((option) => (
             <button
               key={option.id}
@@ -182,7 +182,7 @@ export function RestaurantPerformanceChart({
               aria-pressed={metric === option.id}
               className={cn(
                 "shrink-0 rounded-pill px-3 py-2 text-xs font-semibold transition-colors sm:px-4",
-                metric === option.id ? "bg-white text-ink shadow-soft" : "text-ink-muted hover:text-ink-foreground",
+                metric === option.id ? "bg-ink-foreground text-ink shadow-soft" : "text-ink-muted hover:text-ink-foreground",
               )}
             >
               {option.label}
@@ -203,7 +203,7 @@ export function RestaurantPerformanceChart({
         {hasActivity ? (
           <p className={cn(
             "mb-1 inline-flex items-center gap-1 rounded-pill px-2.5 py-1 text-xs font-bold",
-            delta >= 0 ? "bg-success/15 text-[#7ee2a8]" : "bg-danger/15 text-danger-soft",
+            delta >= 0 ? "bg-success/15 text-success-on-ink" : "bg-danger/15 text-danger-on-ink",
           )}>
             {delta >= 0 ? <ArrowUpRight className="size-3.5" aria-hidden="true" /> : <ArrowDownRight className="size-3.5" aria-hidden="true" />}
             {Math.abs(delta).toFixed(1)}%
@@ -241,20 +241,20 @@ export function RestaurantPerformanceChart({
             const y = padding.top + (index / 3) * (dimensions.height - padding.top - padding.bottom);
             return (
               <g key={`${value}-${index}`}>
-                <line x1={padding.left} x2={dimensions.width - padding.right} y1={y} y2={y} stroke="rgba(255,255,255,0.1)" strokeDasharray="3 8" />
-                {showYAxisLabels ? <text x={dimensions.width - padding.right + 12} y={y + 4} fill="rgba(238,240,247,0.5)" fontSize="11">{formatMetric(value, metric)}</text> : null}
+                <line x1={padding.left} x2={dimensions.width - padding.right} y1={y} y2={y} stroke="var(--ink-foreground)" strokeOpacity="0.1" strokeDasharray="3 8" />
+                {showYAxisLabels ? <text x={dimensions.width - padding.right + 12} y={y + 4} fill="var(--ink-foreground)" fillOpacity="0.5" fontSize="11">{formatMetric(value, metric)}</text> : null}
               </g>
             );
           })}
 
-          <motion.path key={`previous-${metric}-${periodLabel}`} d={linePath(chart.previous)} fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" strokeDasharray="6 8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
+          <motion.path key={`previous-${metric}-${periodLabel}`} d={linePath(chart.previous)} fill="none" stroke="var(--ink-foreground)" strokeOpacity="0.25" strokeWidth="1.5" strokeDasharray="6 8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
           <motion.path key={`area-${metric}-${periodLabel}`} d={areaPath(chart.current, dimensions.height, padding)} fill="url(#restaurant-detail-area)" initial={{ opacity: 0 }} animate={{ opacity: hasActivity ? 1 : 0.2 }} transition={{ duration: 0.45 }} />
           <motion.path key={`line-${metric}-${periodLabel}`} d={linePath(chart.current)} fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" filter="url(#restaurant-detail-glow)" initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: hasActivity ? 1 : 0.35 }} transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }} />
 
           {activePlotPoint && hasActivity ? (
             <g aria-hidden="true">
-              <line x1={activePlotPoint.x} x2={activePlotPoint.x} y1={padding.top} y2={dimensions.height - padding.bottom} stroke="rgba(255,255,255,0.22)" strokeDasharray="3 5" />
-              <circle cx={activePlotPoint.x} cy={activePlotPoint.y} r="8" fill="rgba(147,167,224,0.18)" />
+              <line x1={activePlotPoint.x} x2={activePlotPoint.x} y1={padding.top} y2={dimensions.height - padding.bottom} stroke="var(--ink-foreground)" strokeOpacity="0.22" strokeDasharray="3 5" />
+              <circle cx={activePlotPoint.x} cy={activePlotPoint.y} r="8" fill="var(--accent)" fillOpacity="0.18" />
               <circle cx={activePlotPoint.x} cy={activePlotPoint.y} r="4" fill="var(--accent)" />
             </g>
           ) : null}
@@ -264,7 +264,7 @@ export function RestaurantPerformanceChart({
             const step = Math.max(1, Math.ceil(data.length / (dimensions.width < 520 ? 3 : 5)));
             if (index % step !== 0 && index !== data.length - 1) return null;
             return (
-              <text key={point.id} x={plotPoint.x} y={dimensions.height - 8} textAnchor={index === 0 ? "start" : index === data.length - 1 ? "end" : "middle"} fill="rgba(238,240,247,0.48)" fontSize="11">
+              <text key={point.id} x={plotPoint.x} y={dimensions.height - 8} textAnchor={index === 0 ? "start" : index === data.length - 1 ? "end" : "middle"} fill="var(--ink-foreground)" fillOpacity="0.48" fontSize="11">
                 {point.label}
               </text>
             );
@@ -273,7 +273,7 @@ export function RestaurantPerformanceChart({
 
         {!hasActivity ? (
           <div className="absolute inset-0 grid place-items-center text-center">
-            <div className="rounded-card border border-white/10 bg-white/[0.06] px-5 py-4 backdrop-blur-sm">
+            <div className="rounded-card border border-ink-foreground/10 bg-ink-foreground/[0.06] px-5 py-4 backdrop-blur-sm">
               <p className="text-sm font-bold">No transaction activity yet</p>
               <p className="mt-1 text-xs text-ink-muted">Complete onboarding to start collecting performance data.</p>
             </div>
@@ -282,7 +282,7 @@ export function RestaurantPerformanceChart({
           <div
             aria-hidden="true"
             className={cn(
-              "pointer-events-none absolute z-10 min-w-[10rem] rounded-control border border-white/10 bg-[#20263a]/95 px-3 py-2.5 shadow-lift backdrop-blur-sm",
+              "pointer-events-none absolute z-10 min-w-[10rem] rounded-control border border-ink-foreground/10 bg-ink/95 px-3 py-2.5 shadow-lift backdrop-blur-sm",
               activePlotPoint.x / dimensions.width > 0.7 ? "-translate-x-full" : "translate-x-3",
             )}
             style={{ left: `${(activePlotPoint.x / dimensions.width) * 100}%`, top: `${Math.max((activePlotPoint.y / dimensions.height) * 100 - 14, 4)}%` }}
@@ -296,7 +296,7 @@ export function RestaurantPerformanceChart({
 
       <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.6875rem] font-semibold text-ink-muted">
         <span className="inline-flex items-center gap-2"><span className="h-0.5 w-5 rounded-full bg-[var(--accent)]" aria-hidden="true" /> Current period</span>
-        <span className="inline-flex items-center gap-2"><span className="w-5 border-t border-dashed border-white/35" aria-hidden="true" /> Previous period</span>
+        <span className="inline-flex items-center gap-2"><span className="w-5 border-t border-dashed border-ink-foreground/35" aria-hidden="true" /> Previous period</span>
       </div>
 
       <table className="sr-only">

@@ -197,7 +197,7 @@ function PlanControl({
     : "Start the membership before activating this plan.";
 
   return (
-    <aside aria-labelledby="plan-control-title" className="rounded-card border border-white/12 bg-white p-5 text-foreground shadow-lift sm:p-6">
+    <aside aria-labelledby="plan-control-title" className="rounded-card border border-border bg-card p-5 text-card-foreground shadow-lift sm:p-6">
       <div className="flex flex-col items-start gap-3">
         <div>
           <p className="text-[0.625rem] font-bold tracking-[0.13em] text-primary-strong uppercase">Service plan</p>
@@ -239,7 +239,10 @@ function PlanControl({
         >
           <motion.span
             aria-hidden="true"
-            className="absolute top-0.5 left-0.5 size-5 rounded-full bg-white shadow-soft"
+            className={cn(
+              "absolute top-0.5 left-0.5 size-5 rounded-full shadow-soft",
+              planActive ? "bg-background" : "bg-muted-foreground",
+            )}
             animate={{ x: planActive ? 20 : 0 }}
             transition={{ duration: 0.22 }}
           />

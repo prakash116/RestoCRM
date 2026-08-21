@@ -8,6 +8,7 @@
    ========================================================================== */
 
 :root {
+  color-scheme: light;
   /* Surfaces & text — cool neutrals, tuned to sit under an indigo brand. */
   --background: #fcfdff;
   --foreground: #12151f;
@@ -15,7 +16,7 @@
   --card-foreground: #12151f;
 
   /* Brand */
-  --primary: #6379c2;
+  --primary: #5c72bb;
   --primary-foreground: #ffffff;
   --primary-strong: #46599d;
   --primary-soft: #eef1fb;
@@ -28,12 +29,12 @@
    * components read `rgb(var(--primary-rgb)/0.16)` instead of hardcoding the
    * colour — so re-skinning really is a change to this block alone.
    */
-  --primary-rgb: 99 121 194;
+  --primary-rgb: 92 114 187;
   /* Lighter periwinkle used as the counter-light in dark panels and haloes. */
   --accent: #93a7e0;
   --accent-rgb: 147 167 224;
   /* Drives every shadow, so elevation stays tinted to the palette. */
-  --ink-rgb: 18 21 31;
+  --ink-rgb: 20 24 39;
 
   /* Supporting neutrals */
   --secondary: #f1f3fa;
@@ -42,15 +43,17 @@
   --muted-foreground: #5d6478;
   --border: #e2e6f2;
   --input: #d3d9ea;
-  --ring: #6379c2;
+  --ring: #5c72bb;
 
   /* Semantic */
   --success: #15803d;
+  --success-on-ink: #7ee2a8;
   /* Lightened from #e7f6ec, which left success text at 4.49:1 — just under AA. */
   --success-soft: #ecf8f1;
   --warning: #b45309;
   --warning-soft: #fdf3e5;
   --danger: #b91c1c;
+  --danger-on-ink: #ff9b9b;
   --danger-soft: #fdecec;
 
   /* Domain-specific: Indian FSSAI diet marks + review stars.
@@ -89,10 +92,12 @@
   --color-ring: var(--ring);
 
   --color-success: var(--success);
+  --color-success-on-ink: var(--success-on-ink);
   --color-success-soft: var(--success-soft);
   --color-warning: var(--warning);
   --color-warning-soft: var(--warning-soft);
   --color-danger: var(--danger);
+  --color-danger-on-ink: var(--danger-on-ink);
   --color-danger-soft: var(--danger-soft);
 
   --color-veg: var(--veg);

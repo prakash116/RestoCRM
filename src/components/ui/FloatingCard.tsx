@@ -32,7 +32,7 @@ export function FloatingCard({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.6, delay, ease }}
       className={cn(
-        "rounded-card border border-white/60 bg-white/85 p-3.5 shadow-lift backdrop-blur-md",
+        "rounded-card border border-border bg-card/85 p-3.5 shadow-lift backdrop-blur-md",
         className,
       )}
     >

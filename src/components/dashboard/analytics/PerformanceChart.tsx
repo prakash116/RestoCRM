@@ -137,7 +137,7 @@ export function PerformanceChart({
           <p className="mt-1 text-sm text-ink-muted">{periodLabel} · compared with prior period</p>
         </div>
 
-        <div className="flex w-fit rounded-pill border border-white/10 bg-white/5 p-1" aria-label="Chart metric">
+        <div className="flex w-fit rounded-pill border border-ink-foreground/10 bg-ink-foreground/5 p-1" aria-label="Chart metric">
           {metricOptions.map((option) => (
             <button
               key={option.id}
@@ -147,7 +147,7 @@ export function PerformanceChart({
               className={cn(
                 "rounded-pill px-3 py-2 text-xs font-semibold transition-colors sm:px-4",
                 metric === option.id
-                  ? "bg-white text-ink shadow-soft"
+                  ? "bg-ink-foreground text-ink shadow-soft"
                   : "text-ink-muted hover:text-ink-foreground",
               )}
             >
@@ -166,7 +166,7 @@ export function PerformanceChart({
         >
           {formatMetric(latest, metric)}
         </motion.p>
-        <p className="mb-1 inline-flex items-center gap-1 rounded-pill bg-success/15 px-2.5 py-1 text-xs font-bold text-[#7ee2a8]">
+        <p className="mb-1 inline-flex items-center gap-1 rounded-pill bg-success/15 px-2.5 py-1 text-xs font-bold text-success-on-ink">
           <ArrowUpRight className="size-3.5" aria-hidden="true" />
           {delta.toFixed(1)}%
         </p>
@@ -209,13 +209,15 @@ export function PerformanceChart({
                   x2={WIDTH - PADDING.right}
                   y1={y}
                   y2={y}
-                  stroke="rgba(255,255,255,0.1)"
+                  stroke="var(--ink-foreground)"
+                  strokeOpacity="0.1"
                   strokeDasharray="3 8"
                 />
                 <text
                   x={WIDTH - PADDING.right + 12}
                   y={y + 4}
-                  fill="rgba(238,240,247,0.5)"
+                  fill="var(--ink-foreground)"
+                  fillOpacity="0.5"
                   fontSize="11"
                 >
                   {formatMetric(value, metric)}
@@ -228,7 +230,8 @@ export function PerformanceChart({
             key={`previous-${metric}-${periodLabel}`}
             d={linePath(chart.previous)}
             fill="none"
-            stroke="rgba(255,255,255,0.25)"
+            stroke="var(--ink-foreground)"
+            strokeOpacity="0.25"
             strokeWidth="1.5"
             strokeDasharray="6 8"
             initial={{ opacity: 0 }}
@@ -263,10 +266,11 @@ export function PerformanceChart({
                 x2={activePlotPoint.x}
                 y1={PADDING.top}
                 y2={HEIGHT - PADDING.bottom}
-                stroke="rgba(255,255,255,0.22)"
+                stroke="var(--ink-foreground)"
+                strokeOpacity="0.22"
                 strokeDasharray="3 5"
               />
-              <circle cx={activePlotPoint.x} cy={activePlotPoint.y} r="8" fill="rgba(147,167,224,0.18)" />
+              <circle cx={activePlotPoint.x} cy={activePlotPoint.y} r="8" fill="var(--accent)" fillOpacity="0.18" />
               <circle cx={activePlotPoint.x} cy={activePlotPoint.y} r="4" fill="var(--accent)" />
             </g>
           ) : null}
@@ -281,7 +285,8 @@ export function PerformanceChart({
                 x={plotPoint.x}
                 y={HEIGHT - 8}
                 textAnchor={index === 0 ? "start" : index === data.length - 1 ? "end" : "middle"}
-                fill="rgba(238,240,247,0.48)"
+                fill="var(--ink-foreground)"
+                fillOpacity="0.48"
                 fontSize="11"
               >
                 {point.label}
@@ -294,7 +299,7 @@ export function PerformanceChart({
           <div
             aria-hidden="true"
             className={cn(
-              "pointer-events-none absolute z-10 min-w-[9rem] rounded-control border border-white/10 bg-[#20263a]/95 px-3 py-2.5 shadow-lift backdrop-blur-sm",
+              "pointer-events-none absolute z-10 min-w-[9rem] rounded-control border border-ink-foreground/10 bg-ink/95 px-3 py-2.5 shadow-lift backdrop-blur-sm",
               activePlotPoint.x / WIDTH > 0.72 ? "-translate-x-full" : "translate-x-3",
             )}
             style={{
@@ -317,7 +322,7 @@ export function PerformanceChart({
           <span className="h-0.5 w-5 rounded-full bg-[var(--accent)]" aria-hidden="true" /> Current period
         </span>
         <span className="inline-flex items-center gap-2">
-          <span className="w-5 border-t border-dashed border-white/35" aria-hidden="true" /> Previous period
+          <span className="w-5 border-t border-dashed border-ink-foreground/35" aria-hidden="true" /> Previous period
         </span>
       </div>
 

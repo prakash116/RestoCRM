@@ -3,7 +3,7 @@
 import { useLayoutEffect } from "react";
 
 import { useAppSelector } from "@/lib/hooks";
-import { applyThemeColors } from "@/lib/theme/apply";
+import { applyTheme, getThemeColors } from "@/lib/theme/apply";
 
 /**
  * Keeps `:root` in step with the active theme.
@@ -23,12 +23,24 @@ export function ThemeApplier() {
   const activeTheme = useAppSelector((state) =>
     state.theme.themes.find((theme) => theme.id === state.theme.activeThemeId),
   );
-
-  const colors = activeTheme?.colors;
+  const activeMode = useAppSelector((state) => state.theme.activeMode);
+  const hydrated = useAppSelector((state) => state.theme.hydrated);
 
   useLayoutEffect(() => {
-    if (colors) applyThemeColors(colors);
-  }, [colors]);
+    // The blocking head script owns the pre-hydration paint. Applying Redux's
+    // server snapshot here would briefly overwrite a saved palette with Indigo.
+    if (hydrated && activeTheme) {
+      applyTheme(activeTheme, activeMode);
+
+      let themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+      if (!themeColor) {
+        themeColor = document.createElement("meta");
+        themeColor.name = "theme-color";
+        document.head.append(themeColor);
+      }
+      themeColor.content = getThemeColors(activeTheme, activeMode).background;
+    }
+  }, [activeMode, activeTheme, hydrated]);
 
   return null;
 }

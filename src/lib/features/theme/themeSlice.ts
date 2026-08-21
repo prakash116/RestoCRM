@@ -1,7 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import { CUSTOM_THEME_SLUGS, builtInThemes, defaultThemeState } from "@/data/themes";
-import type { StoredThemeState, ThemeDefinition } from "@/lib/theme/apply";
+import type {
+  PersistedThemeState,
+  StoredThemeState,
+  ThemeDefinition,
+  ThemeMode,
+} from "@/lib/theme/apply";
 import type { ThemeColors, ThemeTokenName } from "@/lib/theme/tokens";
 
 export interface ThemeState extends StoredThemeState {
@@ -22,13 +27,26 @@ const themeSlice = createSlice({
       }
     },
 
+    /** Switches appearance without changing the active colour combination. */
+    setThemeMode(state, action: PayloadAction<ThemeMode>) {
+      state.activeMode = action.payload;
+    },
+
     /** Writes one colour token. The editor calls this on every input change. */
     setThemeColor(
       state,
-      action: PayloadAction<{ themeId: string; token: ThemeTokenName; value: string }>,
+      action: PayloadAction<{
+        themeId: string;
+        mode: ThemeMode;
+        token: ThemeTokenName;
+        value: string;
+      }>,
     ) {
       const theme = state.themes.find((candidate) => candidate.id === action.payload.themeId);
-      if (theme) theme.colors[action.payload.token] = action.payload.value;
+      if (theme) {
+        const colors = action.payload.mode === "dark" ? theme.darkColors : theme.colors;
+        colors[action.payload.token] = action.payload.value;
+      }
     },
 
     renameTheme(state, action: PayloadAction<{ themeId: string; name: string }>) {
@@ -42,7 +60,10 @@ const themeSlice = createSlice({
     resetTheme(state, action: PayloadAction<string>) {
       const theme = state.themes.find((candidate) => candidate.id === action.payload);
       const original = builtInThemes.find((candidate) => candidate.id === action.payload);
-      if (theme && original) theme.colors = { ...original.colors };
+      if (theme && original) {
+        theme.colors = { ...original.colors };
+        theme.darkColors = { ...original.darkColors };
+      }
     },
 
     /**
@@ -67,6 +88,7 @@ const themeSlice = createSlice({
         description: `Created in the dashboard, based on ${seed.name}.`,
         builtIn: false,
         colors: { ...seed.colors },
+        darkColors: { ...seed.darkColors },
       });
     },
 
@@ -88,42 +110,57 @@ const themeSlice = createSlice({
      * restored, while any token added to the schema since then falls back to
      * its shipped value instead of arriving `undefined`.
      */
-    hydrateTheme(state, action: PayloadAction<StoredThemeState | null>) {
+    hydrateTheme(state, action: PayloadAction<PersistedThemeState | null>) {
       state.hydrated = true;
       const stored = action.payload;
       if (!stored?.themes?.length) return;
 
       const base = defaultThemeState();
+      const storedThemes = stored.themes;
       const merged: ThemeDefinition[] = base.themes.map((shipped) => {
-        const saved = stored.themes.find((theme) => theme.id === shipped.id);
+        const saved = storedThemes.find((theme) => theme.id === shipped.id);
         if (!saved) return shipped;
         return {
           ...shipped,
           name: saved.name || shipped.name,
           colors: { ...shipped.colors, ...saved.colors } as ThemeColors,
+          darkColors: {
+            ...shipped.darkColors,
+            ...(saved.darkColors ?? {}),
+          } as ThemeColors,
         };
       });
 
-      for (const saved of stored.themes) {
+      for (const saved of storedThemes) {
         const isCustomSlot = (CUSTOM_THEME_SLUGS as readonly string[]).includes(saved.id);
         if (!isCustomSlot || merged.some((theme) => theme.id === saved.id)) continue;
         merged.push({
-          ...saved,
+          id: saved.id,
+          slug: saved.id,
+          name: saved.name?.trim() || "Untitled theme",
+          description: saved.description || "Created in the DineBoard Theme Studio.",
           builtIn: false,
           colors: { ...base.themes[0].colors, ...saved.colors } as ThemeColors,
+          darkColors: {
+            ...base.themes[0].darkColors,
+            ...(saved.darkColors ?? {}),
+          } as ThemeColors,
         });
       }
 
       state.themes = merged;
-      state.activeThemeId = merged.some((theme) => theme.id === stored.activeThemeId)
-        ? stored.activeThemeId
+      const savedActiveThemeId = stored.activeThemeId;
+      state.activeThemeId = savedActiveThemeId && merged.some((theme) => theme.id === savedActiveThemeId)
+        ? savedActiveThemeId
         : base.activeThemeId;
+      state.activeMode = stored.activeMode === "dark" ? "dark" : "light";
     },
   },
 });
 
 export const {
   activateTheme,
+  setThemeMode,
   setThemeColor,
   renameTheme,
   resetTheme,

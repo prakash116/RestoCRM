@@ -97,6 +97,12 @@ export const THEME_TOKENS = [
   /* ---- Semantic --------------------------------------------------------- */
   { name: "success", label: "Success", description: "Open status, high ratings.", group: "Semantic" },
   {
+    name: "success-on-ink",
+    label: "Success on ink",
+    description: "Positive data and status text inside dark charts and panels.",
+    group: "Semantic",
+  },
+  {
     name: "success-soft",
     label: "Success soft",
     description: "Tinted surface behind success text.",
@@ -110,6 +116,12 @@ export const THEME_TOKENS = [
     group: "Semantic",
   },
   { name: "danger", label: "Danger", description: "Errors and destructive actions.", group: "Semantic" },
+  {
+    name: "danger-on-ink",
+    label: "Danger on ink",
+    description: "Negative data and alert text inside dark charts and panels.",
+    group: "Semantic",
+  },
   {
     name: "danger-soft",
     label: "Danger soft",
@@ -255,12 +267,52 @@ export const CONTRAST_RULES: ContrastRule[] = [
     note: "Pure Veg and Open-now badges.",
   },
   {
+    id: "muted-solid",
+    label: "Label on solid muted badge",
+    foreground: "background",
+    background: "muted-foreground",
+    min: 4.5,
+    note: "Low-rating and disabled solid badges.",
+  },
+  {
+    id: "success-solid",
+    label: "Label on solid success",
+    foreground: "background",
+    background: "success",
+    min: 4.5,
+    note: "Open status and high-rating badges.",
+  },
+  {
+    id: "success-ink",
+    label: "Success text on dark panel",
+    foreground: "success-on-ink",
+    background: "ink",
+    min: 4.5,
+    note: "Positive deltas and chart health labels.",
+  },
+  {
     id: "warning",
     label: "Warning text on tint",
     foreground: "warning",
     background: "warning-soft",
     min: 4.5,
     note: "Booking and console notices.",
+  },
+  {
+    id: "danger-solid",
+    label: "Label on destructive button",
+    foreground: "background",
+    background: "danger",
+    min: 4.5,
+    note: "Delete and destructive confirmation actions.",
+  },
+  {
+    id: "danger-ink",
+    label: "Danger text on dark panel",
+    foreground: "danger-on-ink",
+    background: "ink",
+    min: 4.5,
+    note: "Negative deltas inside dark analytics panels.",
   },
   {
     id: "ink-body",

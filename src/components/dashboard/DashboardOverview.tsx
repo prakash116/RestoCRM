@@ -5,12 +5,13 @@ import { ArrowRight, Palette, ShieldAlert } from "lucide-react";
 
 import { useAppSelector } from "@/lib/hooks";
 import { countContrastFailures } from "@/lib/theme/contrast";
+import { getThemeColors } from "@/lib/theme/apply";
 import { THEME_TOKENS } from "@/lib/theme/tokens";
 import { cn } from "@/lib/utils/cn";
 import { routes } from "@/lib/utils/routes";
 
 export function DashboardOverview() {
-  const { themes, activeThemeId, hydrated } = useAppSelector((state) => state.theme);
+  const { themes, activeThemeId, activeMode, hydrated } = useAppSelector((state) => state.theme);
   const session = useAppSelector((state) => state.auth.session);
   const activeTheme = themes.find((theme) => theme.id === activeThemeId);
 
@@ -22,10 +23,10 @@ export function DashboardOverview() {
     );
   }
 
-  const failures = countContrastFailures(activeTheme.colors);
+  const failures = countContrastFailures(getThemeColors(activeTheme, activeMode));
 
   const stats = [
-    { label: "Live theme", value: activeTheme.name },
+    { label: "Live theme", value: `${activeTheme.name} · ${activeMode}` },
     { label: "Themes available", value: String(themes.length) },
     { label: "Colour tokens", value: String(THEME_TOKENS.length) },
     {
@@ -42,7 +43,7 @@ export function DashboardOverview() {
       </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
         The public site is currently painted with{" "}
-        <strong className="font-semibold text-foreground">{activeTheme.name}</strong>. Every colour
+        <strong className="font-semibold text-foreground">{activeTheme.name} · {activeMode}</strong>. Every colour
         below is editable, and changes apply to the site immediately.
       </p>
 
@@ -81,7 +82,7 @@ export function DashboardOverview() {
               />
             </span>
             <span className="mt-1.5 block text-sm text-muted-foreground">
-              {themes.length} named themes, each on its own route with all {THEME_TOKENS.length}{" "}
+              {themes.length} combinations, each with Light and Dark versions of all {THEME_TOKENS.length}{" "}
               colour tokens.
             </span>
           </span>

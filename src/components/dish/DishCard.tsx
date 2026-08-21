@@ -54,7 +54,7 @@ export function DishCard({
             <span />
           )}
 
-          <span className="grid size-7 place-items-center rounded-full bg-white/90 backdrop-blur-sm">
+          <span className="grid size-7 place-items-center rounded-full border border-border bg-card/90 backdrop-blur-sm">
             <DietMark type={dish.vegType} />
           </span>
         </div>

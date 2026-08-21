@@ -1294,7 +1294,7 @@ export function RestaurantManagement() {
                 <button
                   type="button"
                   onClick={deleteRestaurant}
-                  className="inline-flex h-10 items-center gap-2 rounded-pill bg-danger px-4 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+                  className="inline-flex h-10 items-center gap-2 rounded-pill bg-danger px-4 text-sm font-bold text-background transition-transform hover:-translate-y-0.5"
                 >
                   <Trash2 className="size-4" aria-hidden="true" /> Delete restaurant
                 </button>
