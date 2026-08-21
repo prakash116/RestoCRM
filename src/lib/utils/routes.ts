@@ -107,6 +107,7 @@ export const routes = {
 
   dashboard: () => "/dashboard",
   dashboardRestaurants: () => "/dashboard/restaurants",
+  dashboardRestaurant: (restaurantId: string) => `/dashboard/restaurants/${restaurantId}`,
   dashboardAnalytics: () => "/dashboard/analytics",
   dashboardRevenue: () => "/dashboard/revenue",
   dashboardLogin: () => "/dashboard/login",

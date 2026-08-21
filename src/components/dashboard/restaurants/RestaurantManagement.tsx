@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   useEffect,
   useMemo,
@@ -11,6 +12,7 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import {
   Activity,
+  ArrowUpRight,
   Building2,
   Check,
   CircleAlert,
@@ -44,25 +46,23 @@ import {
   type RestaurantPlan,
   type RestaurantStatus,
 } from "@/data/dashboard-restaurants";
+import {
+  DEFAULT_RESTAURANT_REGISTRY_SNAPSHOT,
+  getRestaurantRegistrySnapshot,
+  getServerRestaurantRegistrySnapshot,
+  parseRestaurantRegistry,
+  saveRestaurantRegistry,
+  subscribeRestaurantRegistry,
+} from "@/lib/dashboard/restaurant-registry";
 import { cn } from "@/lib/utils/cn";
 import { ease } from "@/lib/utils/motion";
+import { routes } from "@/lib/utils/routes";
 
 type StatusFilter = "all" | RestaurantStatus;
 type MembershipFilter = "all" | MembershipStatus;
 type CityFilter = "all" | ManagedRestaurant["city"];
 type SortOption = "recent" | "name" | "onboarding";
 type DrawerState = { mode: "view" | "edit"; restaurantId: string } | null;
-
-interface RestaurantSnapshot {
-  version: 1;
-  records: ManagedRestaurant[];
-}
-
-const STORAGE_KEY = "dineboard.dashboard-restaurants.v1";
-const CHANGE_EVENT = "dineboard-dashboard-restaurants-change";
-const DEFAULT_SNAPSHOT: RestaurantSnapshot = { version: 1, records: managedRestaurants };
-const DEFAULT_RAW_SNAPSHOT = JSON.stringify(DEFAULT_SNAPSHOT);
-let volatileSnapshot = DEFAULT_RAW_SNAPSHOT;
 
 const statusMeta: Record<
   RestaurantStatus,
@@ -112,84 +112,6 @@ const dateTimeFormatter = new Intl.DateTimeFormat("en-IN", {
   hour: "numeric",
   minute: "2-digit",
 });
-
-function subscribeRegistry(callback: () => void): () => void {
-  const handleStorage = (event: StorageEvent) => {
-    if (!event.key || event.key === STORAGE_KEY) callback();
-  };
-
-  window.addEventListener("storage", handleStorage);
-  window.addEventListener(CHANGE_EVENT, callback);
-  return () => {
-    window.removeEventListener("storage", handleStorage);
-    window.removeEventListener(CHANGE_EVENT, callback);
-  };
-}
-
-function getRegistrySnapshot(): string {
-  try {
-    return window.localStorage.getItem(STORAGE_KEY) ?? volatileSnapshot;
-  } catch {
-    return volatileSnapshot;
-  }
-}
-
-function getServerRegistrySnapshot(): string {
-  return DEFAULT_RAW_SNAPSHOT;
-}
-
-function isRestaurantStatus(value: unknown): value is RestaurantStatus {
-  return value === "active" || value === "inactive" || value === "blocked" || value === "pending";
-}
-
-function isMembershipStatus(value: unknown): value is MembershipStatus {
-  return value === "active" || value === "expiring" || value === "expired" || value === "not_started";
-}
-
-function isManagedRestaurant(value: unknown): value is ManagedRestaurant {
-  if (!value || typeof value !== "object") return false;
-  const record = value as Partial<ManagedRestaurant>;
-  return (
-    typeof record.id === "string" &&
-    typeof record.name === "string" &&
-    typeof record.locality === "string" &&
-    (record.city === "Delhi" || record.city === "Gurugram" || record.city === "Noida") &&
-    typeof record.ownerName === "string" &&
-    typeof record.email === "string" &&
-    typeof record.phone === "string" &&
-    (record.plan === "Restaurant Pro" ||
-      record.plan === "Digital Presence" ||
-      record.plan === "QR Starter") &&
-    isRestaurantStatus(record.status) &&
-    isMembershipStatus(record.membership) &&
-    typeof record.onboardingProgress === "number" &&
-    typeof record.outletCount === "number" &&
-    typeof record.rating === "number" &&
-    typeof record.ordersThisMonth === "number"
-  );
-}
-
-function parseRegistry(snapshot: string): ManagedRestaurant[] {
-  try {
-    const value = JSON.parse(snapshot) as Partial<RestaurantSnapshot>;
-    if (value.version !== 1 || !Array.isArray(value.records)) return managedRestaurants;
-    const records = value.records.filter(isManagedRestaurant);
-    return records.length === value.records.length ? records : managedRestaurants;
-  } catch {
-    return managedRestaurants;
-  }
-}
-
-function saveRegistry(records: ManagedRestaurant[]): void {
-  const snapshot = JSON.stringify({ version: 1, records } satisfies RestaurantSnapshot);
-  volatileSnapshot = snapshot;
-  try {
-    window.localStorage.setItem(STORAGE_KEY, snapshot);
-  } catch {
-    /* The in-memory snapshot keeps controls working when storage is unavailable. */
-  }
-  window.dispatchEvent(new Event(CHANGE_EVENT));
-}
 
 function getInitials(name: string): string {
   return name
@@ -267,13 +189,11 @@ function IconAction({
 
 function RestaurantActions({
   restaurant,
-  onView,
   onEdit,
   onToggleBlock,
   onDelete,
 }: {
   restaurant: ManagedRestaurant;
-  onView: () => void;
   onEdit: () => void;
   onToggleBlock: () => void;
   onDelete: () => void;
@@ -281,9 +201,14 @@ function RestaurantActions({
   const blocked = restaurant.status === "blocked";
   return (
     <div className="flex items-center gap-1" role="group" aria-label={`Actions for ${restaurant.name}`}>
-      <IconAction label={`View ${restaurant.name}`} onClick={onView}>
+      <Link
+        href={routes.dashboardRestaurant(restaurant.id)}
+        aria-label={`Open full details for ${restaurant.name}`}
+        title={`Open full details for ${restaurant.name}`}
+        className="grid size-10 shrink-0 place-items-center rounded-control border border-border bg-card text-muted-foreground transition-[transform,border-color,background-color,color] hover:-translate-y-0.5 hover:border-primary/35 hover:bg-primary-soft hover:text-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      >
         <Eye className="size-4" aria-hidden="true" />
-      </IconAction>
+      </Link>
       <IconAction label={`Edit ${restaurant.name}`} onClick={onEdit}>
         <PencilLine className="size-4" aria-hidden="true" />
       </IconAction>
@@ -433,7 +358,13 @@ function RestaurantIdentity({ restaurant }: { restaurant: ManagedRestaurant }) {
         />
       </span>
       <span className="min-w-0">
-        <span className="block truncate text-sm font-bold text-foreground">{restaurant.name}</span>
+        <Link
+          href={routes.dashboardRestaurant(restaurant.id)}
+          className="group/name flex max-w-full items-center gap-1 text-sm font-bold text-foreground outline-none transition-colors hover:text-primary-strong focus-visible:text-primary-strong focus-visible:underline"
+        >
+          <span className="truncate">{restaurant.name}</span>
+          <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover/name:opacity-100 group-focus-visible/name:opacity-100" aria-hidden="true" />
+        </Link>
         <span className="mt-0.5 flex items-center gap-1 text-[0.6875rem] text-muted-foreground">
           <MapPin className="size-3 shrink-0" aria-hidden="true" />
           <span className="truncate">
@@ -724,14 +655,13 @@ function RestaurantDrawer({
                   onChange={(value) => update("membershipExpiresAt", value || null)}
                   required={draft.membership !== "not_started"}
                 />
-                <TextField
-                  label="Outlets"
-                  type="number"
-                  min={1}
-                  value={String(draft.outletCount)}
-                  onChange={(value) => update("outletCount", Math.max(1, Number(value)))}
-                  required
-                />
+                <div>
+                  <span className="mb-1.5 block text-[0.625rem] font-bold tracking-[0.11em] text-muted-foreground uppercase">Outlets</span>
+                  <div className="flex h-11 items-center justify-between rounded-control border border-border bg-muted/55 px-3 text-sm font-semibold text-foreground">
+                    <span>{draft.outletCount}</span>
+                    <span className="text-[0.625rem] text-muted-foreground">Network synced</span>
+                  </div>
+                </div>
                 <TextField
                   label="Onboarding progress"
                   type="number"
@@ -862,11 +792,11 @@ function EditSelect({
 
 export function RestaurantManagement() {
   const snapshot = useSyncExternalStore(
-    subscribeRegistry,
-    getRegistrySnapshot,
-    getServerRegistrySnapshot,
+    subscribeRestaurantRegistry,
+    getRestaurantRegistrySnapshot,
+    getServerRestaurantRegistrySnapshot,
   );
-  const records = useMemo(() => parseRegistry(snapshot), [snapshot]);
+  const records = useMemo(() => parseRestaurantRegistry(snapshot), [snapshot]);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
   const [membership, setMembership] = useState<MembershipFilter>("all");
@@ -949,7 +879,7 @@ export function RestaurantManagement() {
     ? Math.round(records.reduce((total, item) => total + item.onboardingProgress, 0) / metrics.total)
     : 0;
   const renewalsAtRisk = records.filter((item) => item.membership === "expiring" || item.membership === "expired").length;
-  const registryChanged = snapshot !== DEFAULT_RAW_SNAPSHOT;
+  const registryChanged = snapshot !== DEFAULT_RESTAURANT_REGISTRY_SNAPSHOT;
 
   function rememberFocus() {
     previousFocus.current = document.activeElement as HTMLElement | null;
@@ -982,7 +912,7 @@ export function RestaurantManagement() {
   }
 
   function updateRestaurant(updated: ManagedRestaurant) {
-    saveRegistry(records.map((item) => (item.id === updated.id ? updated : item)));
+    saveRestaurantRegistry(records.map((item) => (item.id === updated.id ? updated : item)));
     setDrawer(null);
     setAnnouncement(`${updated.name} was updated.`);
   }
@@ -990,13 +920,13 @@ export function RestaurantManagement() {
   function toggleActive(restaurant: ManagedRestaurant) {
     if (getToggleExplanation(restaurant)) return;
     const nextStatus: RestaurantStatus = restaurant.status === "active" ? "inactive" : "active";
-    saveRegistry(records.map((item) => item.id === restaurant.id ? { ...item, status: nextStatus } : item));
+    saveRestaurantRegistry(records.map((item) => item.id === restaurant.id ? { ...item, status: nextStatus } : item));
     setAnnouncement(`${restaurant.name} is now ${nextStatus}.`);
   }
 
   function toggleBlock(restaurant: ManagedRestaurant) {
     const blocked = restaurant.status === "blocked";
-    saveRegistry(
+    saveRestaurantRegistry(
       records.map((item) => {
         if (item.id !== restaurant.id) return item;
         if (blocked) {
@@ -1016,7 +946,7 @@ export function RestaurantManagement() {
 
   function deleteRestaurant() {
     if (!deleteTarget) return;
-    saveRegistry(records.filter((item) => item.id !== deleteTarget.id));
+    saveRestaurantRegistry(records.filter((item) => item.id !== deleteTarget.id));
     previousFocus.current = null;
     setDeleteTargetId(null);
     setAnnouncement(`${deleteTarget.name} was deleted from this browser's demo registry.`);
@@ -1024,7 +954,7 @@ export function RestaurantManagement() {
   }
 
   function restoreDemo() {
-    saveRegistry(managedRestaurants);
+    saveRestaurantRegistry(managedRestaurants);
     resetFilters();
     setDrawer(null);
     setDeleteTargetId(null);
@@ -1244,7 +1174,6 @@ export function RestaurantManagement() {
                   <div className="mt-4 overflow-x-auto pb-1">
                     <RestaurantActions
                       restaurant={restaurant}
-                      onView={() => openDrawer("view", restaurant.id)}
                       onEdit={() => openDrawer("edit", restaurant.id)}
                       onToggleBlock={() => toggleBlock(restaurant)}
                       onDelete={() => openDelete(restaurant.id)}
@@ -1301,7 +1230,6 @@ export function RestaurantManagement() {
                       <td className="sticky right-0 z-[1] border-l border-border/60 bg-card px-3 py-4 pr-5 align-middle shadow-[-12px_0_20px_-22px_rgb(0_0_0/0.5)] transition-colors group-hover:bg-primary-soft/35 sm:pr-6">
                         <RestaurantActions
                           restaurant={restaurant}
-                          onView={() => openDrawer("view", restaurant.id)}
                           onEdit={() => openDrawer("edit", restaurant.id)}
                           onToggleBlock={() => toggleBlock(restaurant)}
                           onDelete={() => openDelete(restaurant.id)}

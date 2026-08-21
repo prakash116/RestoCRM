@@ -11,6 +11,8 @@ export interface ManagedRestaurant {
   email: string;
   phone: string;
   plan: RestaurantPlan;
+  /** Optional for backwards compatibility with existing v1 browser snapshots. */
+  planActive?: boolean;
   status: RestaurantStatus;
   statusBeforeBlock?: Exclude<RestaurantStatus, "blocked">;
   membership: MembershipStatus;
